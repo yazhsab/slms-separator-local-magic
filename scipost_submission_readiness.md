@@ -41,7 +41,7 @@ These blockers are now explicitly documented and not represented as solved.
 Current manuscript placeholders:
 
 - `[Zenodo DOI to be inserted after release]`
-- `[GitHub URL to be inserted after release]`
+- `https://github.com/yazhsab/slms-separator-local-magic`
 
 Do not submit a final archival version until these placeholders are either replaced by real public links or explicitly allowed by the submission workflow as "artifact forthcoming."
 

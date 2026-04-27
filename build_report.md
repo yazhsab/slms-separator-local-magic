@@ -16,7 +16,7 @@ Output:
 
 - `main.pdf`
 - 47 pages
-- sha256 `6c2c03ad3054e0d2ff972915117af82636855ec736d40580ed959bc769002c8f`
+- sha256 `4b99995ffc23cc979e8718975b2f9567194ac28d8357024e799b2d77dd96979f`
 
 Log audit:
 
@@ -134,7 +134,7 @@ Status: expected exit code 2. The probe reports:
 ## Generated File Hashes
 
 ```text
-main.pdf 6c2c03ad3054e0d2ff972915117af82636855ec736d40580ed959bc769002c8f
+main.pdf 4b99995ffc23cc979e8718975b2f9567194ac28d8357024e799b2d77dd96979f
 results/slms_certificate_results.csv 159e03c89f623543d22c881b581c0ed61b61f271cad178c3f4521b43b2eb5463
 results/slms_certificate_failures.csv d594c0d993648c97f2c33f21b33af22080642d4c1a1ce1d05de5949250aef6e5
 results/baseline_results.csv ee2a5c09323b9e97f60e3e4d9ab5c086daf3cb89a4c1deec8f2610a88e169413
@@ -160,4 +160,4 @@ figures/exp_w_eff_histogram.pdf 3d82e0035afee03a6d3dae00d1015124620fe0a14531654c
 - The artifact does not contain parser-generated lambeq/QDisCoCirc resource instances.
 - Exact Sutcliffe--Kissinger ZX cutting/k-partitioning is not implemented.
 - Exact Masot-Llima / Nakhl STN or MAST is not implemented.
-- Zenodo DOI and GitHub URL remain placeholders until public release.
+- Zenodo DOI remains a placeholder until public release; GitHub URL is `https://github.com/yazhsab/slms-separator-local-magic`.

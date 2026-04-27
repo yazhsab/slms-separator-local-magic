@@ -87,7 +87,7 @@ Status reflects work executed in the 2026-04-26 implementation session.
   microbenchmarks, but not for an end-to-end SLMS simulator on
   parser-generated lambeq circuits, which would require resolving the
   upstream parser block above.
-- [ ] **Public artifact DOI pending.** The manuscript contains placeholders
-  `[Zenodo DOI to be inserted after release]` and `[GitHub URL to be inserted
-  after release]`. Do not replace them until a real GitHub release and Zenodo
-  DOI exist.
+- [ ] **Public artifact DOI pending.** The manuscript contains the placeholder
+  `[Zenodo DOI to be inserted after release]`. The GitHub repository now exists
+  at `https://github.com/yazhsab/slms-separator-local-magic`; do not replace
+  the Zenodo placeholder until a real Zenodo DOI exists.

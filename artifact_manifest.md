@@ -128,6 +128,6 @@ The artifact is deterministic under `seed: 7` in `experiments/slms_certificate/c
 
 ## Public Archive Status
 
-- GitHub URL: `[GitHub URL to be inserted after release]`
+- GitHub URL: `https://github.com/yazhsab/slms-separator-local-magic`
 - Zenodo DOI: `[Zenodo DOI to be inserted after release]`
 - DOI status: pending; no DOI has been minted in this repository.

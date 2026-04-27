@@ -107,9 +107,9 @@ Audit and release files:
 - `parser_failure_logs/` directory was missing at audit start.
 - `worked_certificate/` directory was missing at audit start.
 - Public GitHub URL is not assigned.
-- Zenodo DOI is not minted.
+- Zenodo DOI was not minted at audit start.
 
-Post-audit remediation: `LICENSE`, root `requirements.txt`, `parser_failure_logs/README.md`, and `worked_certificate/README.md` have been added. The public GitHub URL and Zenodo DOI remain pending external release actions.
+Post-audit remediation: `LICENSE`, root `requirements.txt`, `parser_failure_logs/README.md`, and `worked_certificate/README.md` have been added. The public GitHub URL is `https://github.com/yazhsab/slms-separator-local-magic`; the Zenodo record is `https://zenodo.org/records/19805000` with DOI `10.5281/zenodo.19805000`.
 
 ## Build Status
 

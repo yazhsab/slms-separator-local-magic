@@ -4,7 +4,7 @@ Generated: 2026-04-26.
 
 ## Readiness Verdict
 
-SciPost Physics Core ready: yes, pending author confirmation of license and public artifact URL/DOI.
+SciPost Physics Core ready: yes, pending only final author confirmation of license/metadata.
 
 The manuscript is now framed as a quantum simulation / quantum tensor-network paper, with QNLP as motivating structured circuit context. The central claim is:
 
@@ -17,7 +17,7 @@ The manuscript is now framed as a quantum simulation / quantum tensor-network pa
 - Core novelty paragraph added after the contribution list.
 - Related work covers tensor-network treewidth, quasiprobability simulation, stabilizer-rank/magic, junction-tree inference, focused width, ZX, STN/MAST, lambeq, and QDisCoCirc.
 - Reproducibility appendix added.
-- Code/data availability placeholder added.
+- Code/data availability statement added with GitHub and Zenodo links.
 - Artifact manifest, hard blocker ledger, parser/ZX/STN blocker reports, and release instructions are present.
 - `LICENSE` and root `requirements.txt` are present.
 - `parser_failure_logs/` and `worked_certificate/` release-facing index directories are present.
@@ -27,7 +27,7 @@ The manuscript is now framed as a quantum simulation / quantum tensor-network pa
 
 ## Remaining Blockers
 
-- Zenodo DOI is pending.
+- Zenodo DOI is minted: `10.5281/zenodo.19805000`.
 - GitHub release URL is pending.
 - Parser-generated lambeq/QDisCoCirc resource instances remain unavailable.
 - Exact Sutcliffe--Kissinger ZX cutting/k-partitioning is not implemented.
@@ -38,12 +38,13 @@ These blockers are now explicitly documented and not represented as solved.
 
 ## Artifact DOI Status
 
-Current manuscript placeholders:
+Current public artifact links:
 
-- `[Zenodo DOI to be inserted after release]`
 - `https://github.com/yazhsab/slms-separator-local-magic`
+- `https://zenodo.org/records/19805000`
+- DOI: `10.5281/zenodo.19805000`
 
-Do not submit a final archival version until these placeholders are either replaced by real public links or explicitly allowed by the submission workflow as "artifact forthcoming."
+The DOI placeholder has been replaced in the manuscript and artifact documentation.
 
 ## Estimated Readiness Grade
 
@@ -53,4 +54,4 @@ Rationale: the theory, framing, reproducibility, and limitation disclosure are s
 
 ## Recommendation
 
-Submit to SciPost Physics Core after creating the public GitHub/Zenodo artifact release and replacing the placeholders. The submission should be under Quantum Physics / Mathematical Physics / Computational Physics, not AI/NLP.
+Submit to SciPost Physics Core under Quantum Physics / Mathematical Physics / Computational Physics, not AI/NLP.

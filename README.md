@@ -107,4 +107,5 @@ The Python 3.11 venv at `/tmp/slms_lambeq_py311` is created with `python3.11 -m 
 - lambeq LinearReader sidecar diagrams are graph-only and carry no non-Clifford resource annotations.
 - Exact Sutcliffe--Kissinger ZX cutting/k-partitioning is not implemented.
 - Exact Masot-Llima / Nakhl STN or MAST is not implemented.
-- The public Zenodo DOI is pending: `[Zenodo DOI to be inserted after release]`.
+- Public Zenodo DOI: `10.5281/zenodo.19805000`
+- Zenodo record: `https://zenodo.org/records/19805000`

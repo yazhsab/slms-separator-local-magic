@@ -2,7 +2,7 @@
 
 Audit date: 2026-04-26.
 
-Final status: `PARTIALLY MITIGATED`. The local artifact is reproducible, but it is not yet a public DOI-backed artifact.
+Final status: `READY WITH KNOWN SCIENTIFIC LIMITATIONS`. The local artifact is reproducible and has a public Zenodo DOI-backed release. The release remains scientifically limited by fallback-only structured resource evidence and unavailable exact external baselines, as recorded in `hard_blocker_ledger.md`.
 
 ## Present files
 
@@ -46,7 +46,7 @@ Missing for public release:
 
 - `LICENSE`
 - Public URL
-- Zenodo DOI
+- Zenodo DOI: `10.5281/zenodo.19805000`
 - Release tag
 
 ## Sensitive or unwanted release files
@@ -90,7 +90,7 @@ results/real_lambeq_instances.json 120 sha256 23dcdc864967c174fb4eb8bf9ec9773717
 results/lambeq_reader_certificate_results.csv 120 sha256 30aca56bd12838357fc976e78bdabc91526ef544cc99b5661285dd1d9dbf36a7
 results/dense_contraction_baseline.csv 24 sha256 a9730eb430b67e9a2befa5312ec0e692d6ff0703e50e7bb58789770f1ae45083
 results/slms_scalar_estimator_results.csv 32 sha256 f2a86524e6b02959628de96af5f8cea24a4ba686eaa2ffef661e46beb71d9a1d
-main.pdf sha256 4b99995ffc23cc979e8718975b2f9567194ac28d8357024e799b2d77dd96979f
+main.pdf sha256 7d00ce8b3d6b78bb26b8f1509b06199fd614ccee8468708958ec9445de68c6cd
 ```
 
 Figure hashes:
@@ -110,4 +110,9 @@ Partially. Add `LICENSE`, remove generated caches and stale archives, and tag a 
 
 ## Ready for Zenodo?
 
-Not yet. A GitHub release or clean ZIP must be prepared first, and Zenodo must mint the DOI. Do not write a DOI into the paper until it exists.
+Yes, with limitations. The public Zenodo record is:
+
+- DOI: `10.5281/zenodo.19805000`
+- Record: `https://zenodo.org/records/19805000`
+
+If the originally uploaded ZIP predates the DOI insertion in the manuscript, create a new Zenodo version and upload the DOI-synchronized archive generated from the latest GitHub commit.

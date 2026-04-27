@@ -32,7 +32,7 @@ Citation placeholder:
 
 ```text
 [Authors], Separator-Local Treewidth--Magic Simulation Artifact,
-Zenodo, [Zenodo DOI to be inserted after release].
+Zenodo, https://doi.org/10.5281/zenodo.19805000.
 ```
 
 Minimum release note:

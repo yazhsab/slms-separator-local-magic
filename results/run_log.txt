@@ -1,0 +1,10 @@
+timestamp_utc: 2026-04-26T17:27:02.152722+00:00
+command: experiments/slms_certificate/run_all.py --mode auto
+mode_requested: auto
+sentences_loaded: 120
+real_lambeq_status: {"extraction_mode": "linear_reader_not_parser", "failure_reason": "", "lambeq_available": true, "parser_available": true, "parser_failure_parser_name": "WebParser", "parser_failure_reason": "real_lambeq_parser_failed: WebParseError: Web parser could not parse 'Alice likes Bob.'", "parser_name": "cups_reader", "reader_note": "lambeq LinearReader output; not CCG/Bobcat/DepCCG parsed diagrams", "real_instances": 120, "used_lambeq": true}
+mode_actually_used: fallback_with_lambeq_reader_evidence
+instances: 120
+certificate_passes: 105
+certificate_failures: 15
+warnings: ['fallback_structured_instances_are_not_real_lambeq_outputs', 'focused_treewidth_exact_for_n<=22_else_heuristic_upper_bound', 'focused_rankwidth_recursive_bipartition_upper_bound_NP_hard_in_general', 'ZX_baseline_uses_pyzx_full_reduce_not_Sutcliffe_Kissinger_cutting', 'ZX_k_partition_heuristic_is_not_Sutcliffe_Kissinger_exact_algorithm', 'STN_proxy_is_tableau_plus_Bravyi_Gosset_upper_bound_NOT_Masot_Llima_or_Nakhl', 'wall_clock_microbenchmarks_recorded_for_focused_widths_pyzx_and_STN_proxy', 'parser_level_lambeq_extraction_blocked_by_dead_qnlp_cambridgequantum_com_URL']

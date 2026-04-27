@@ -1,0 +1,3 @@
+# Root convenience requirements for the SLMS SciPost artifact.
+# The executable experiment package lives in experiments/slms_certificate/.
+-r experiments/slms_certificate/requirements.txt

@@ -1,0 +1,9 @@
+# Novelty Positioning
+
+Compared with Markov--Shi, the paper does not improve dense tensor-network contraction for arbitrary tensors. Markov--Shi gives a structural simulation bound controlled by dense contraction width. The present manuscript studies tensor networks with additional stabilizer/resource structure and distinguishes ordinary dense width from stabilizer-compressed effective width. The dense-grid example is a parameter separation: a graph-state core has large dense treewidth but a compact stabilizer representation once free regions are certified.
+
+Compared with global stabilizer-rank, stabilizer-extent, robustness, and quasiprobability simulation, the paper changes how local magic costs compose. A global method pays for all resource tensors whose decomposition is sampled. SLMS pays only for local costs and active child messages that survive the certified recurrence. Locally marginalized resource labels do not load ancestor separators, so global burden and message burden can scale differently.
+
+Compared with Gottesman--Knill, the paper is not merely stabilizer simulation with occasional local sampling. Pure stabilizer circuits are already easy, and global quasiprobability methods already handle arbitrary local magic with a global product overhead. The new object is the certified message recurrence combining stabilizer compression, free-tensor `l1` costs, local coefficient-map factors, and active-child marginalization.
+
+Compared with Laakkonen--Meichanetzidis--Coecke QDisCoCirc hardness, the aim is orthogonal. LMC gives qualitative conditional hardness under explicit ansatz and grammatical assumptions. This manuscript gives a quantitative easy-regime theorem and diagnostics for locating structured compositional circuits relative to dense treewidth and global magic methods. It does not claim to supersede the hardness result.

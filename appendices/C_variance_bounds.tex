@@ -1,0 +1,34 @@
+\section{Variance Bounds}
+\label{app:variance}
+
+This appendix expands the variance calculation used in Lemma~\ref{lem:message-recurrence} and Theorem~\ref{thm:main}. Suppose a scalar tensor contraction can be written as
+\[
+p=\sum_{\omega} q(\omega) z(\omega)
+\]
+where \(q\) is a signed or complex quasiprobability representation. Let
+\[
+\gamma=\sum_{\omega}|q(\omega)|.
+\]
+Sampling \(\omega\) from \(Q(\omega)=|q(\omega)|/\gamma\) and returning
+\[
+Z=\gamma\,\operatorname{phase}(q(\omega))\,z(\omega)
+\]
+gives \(\E[Z]=p\). If \(|z(\omega)|\le B\), then
+\[
+\E[|Z|^2]\le \gamma^2 B^2.
+\]
+Thus \(N=O(\gamma^2B^2\eps^{-2})\) samples suffice for constant-probability additive estimation, with logarithmic amplification for failure probability \(\delta\).
+
+In global quasiprobability simulation, \(\gamma\) is the product of all local \(\ell_1\) costs. In SLMS, Lemma~\ref{lem:message-recurrence} proves for locally marginalizable networks that the effective \(\gamma\) for the hardest message is bounded by
+\[
+\gamma_{\mathrm{eff}}\le \exp(\Lammsg(C,\T)).
+\]
+Consequently the sampling term in Theorem~\ref{thm:main} is explicitly \(\exp(2\Lammsg(C,\T))\). The bounded term \(B\) is accounted for by the effective active boundary dimension \(2^{O(\weff)}\) and by normalization conventions for local tensors.
+
+\subsection{Median-of-means}
+
+Let \(Z_1,\ldots,Z_N\) be independent unbiased estimators with variance at most \(\sigma^2\). Partition the samples into \(K=O(\log(1/\delta))\) groups, each of size \(M=O(\sigma^2/\eps^2)\). Compute the mean in each group and return the median. Standard median-of-means analysis gives additive error \(\eps\) with failure probability at most \(\delta\). This avoids requiring bounded support beyond a second-moment bound.
+
+\subsection{Message-table estimators}
+
+The main theorem estimates the root scalar. If an implementation instead estimates intermediate messages as random tensors, it must choose a norm in which to control their second moments and must include the active-boundary table dimension \(D_b\le 2^{O(\weff)}\), per-entry accuracy, and union bounds. The local recurrence in Lemma~\ref{lem:message-recurrence} controls normalized entries or normalized linear functionals through the certified coefficient-norm factors \(\kappa_b\). Replacing these local certificates by a sharper general separator rule is part of the broader separator-factorization conjecture.

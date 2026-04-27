@@ -1,0 +1,47 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 474 >>
+stream
+BT /F1 14 Tf 50 760 Td (Lambda_msg histogram) Tj ET
+0.5 w
+50 90 m 560 90 l S
+50 90 m 50 700 l S
+55.00 90 37.67 560.00 re S
+96.67 90 37.67 56.00 re S
+138.33 90 37.67 24.89 re S
+180.00 90 37.67 0.00 re S
+221.67 90 37.67 0.00 re S
+263.33 90 37.67 87.11 re S
+305.00 90 37.67 0.00 re S
+346.67 90 37.67 0.00 re S
+388.33 90 37.67 0.00 re S
+430.00 90 37.67 0.00 re S
+471.67 90 37.67 0.00 re S
+513.33 90 37.67 18.67 re S
+BT /F1 10 Tf 50 60 Td (Lambda_msg range 0.262 to 16.529) Tj ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+836
+%%EOF

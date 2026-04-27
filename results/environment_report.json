@@ -1,0 +1,144 @@
+{
+  "timestamp_utc": "2026-04-26T17:26:58.509375+00:00",
+  "python": {
+    "executable": "/private/tmp/slms_lambeq_py311/bin/python",
+    "version": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.3.19.1)]",
+    "version_info": [
+      3,
+      11,
+      14
+    ],
+    "platform": "macOS-26.3.1-arm64-arm-64bit"
+  },
+  "packages": {
+    "numpy": {
+      "available": true,
+      "version": "2.4.4",
+      "error": null
+    },
+    "pandas": {
+      "available": true,
+      "version": "3.0.2",
+      "error": null
+    },
+    "networkx": {
+      "available": true,
+      "version": "3.6.1",
+      "error": null
+    },
+    "matplotlib": {
+      "available": true,
+      "version": "3.10.9",
+      "error": null
+    },
+    "yaml": {
+      "available": true,
+      "version": "6.0.3",
+      "error": null
+    },
+    "opt_einsum": {
+      "available": true,
+      "version": "3.4.0",
+      "error": null
+    },
+    "cotengra": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "lambeq": {
+      "available": true,
+      "version": "0.5.0",
+      "error": null
+    },
+    "discopy": {
+      "available": true,
+      "version": "1.2.2",
+      "error": null
+    },
+    "qiskit": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "pytket": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "pytest": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "pyzx": {
+      "available": true,
+      "version": "0.10.0",
+      "error": null
+    },
+    "qdiscocirc": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "qdisco_circ": {
+      "available": false,
+      "version": null,
+      "error": null
+    }
+  },
+  "core_available": true,
+  "networkx_available": true,
+  "plotting_available": true,
+  "optional_baseline_packages": {
+    "opt_einsum": {
+      "available": true,
+      "version": "3.4.0",
+      "error": null
+    },
+    "cotengra": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "qiskit": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "pytket": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "pyzx": {
+      "available": true,
+      "version": "0.10.0",
+      "error": null
+    }
+  },
+  "qdiscocirc": {
+    "qdiscocirc": {
+      "available": false,
+      "version": null,
+      "error": null
+    },
+    "qdisco_circ": {
+      "available": false,
+      "version": null,
+      "error": null
+    }
+  },
+  "lambeq": {
+    "lambeq_available": true,
+    "parser_available": true,
+    "available_parser_classes": [
+      "BobcatParser",
+      "DepCCGParser",
+      "CCGParser",
+      "WebParser"
+    ],
+    "preferred_parser": "BobcatParser",
+    "error": null
+  }
+}

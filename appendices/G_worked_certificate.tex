@@ -1,0 +1,58 @@
+\section{Worked Certificate on a Fallback Lambeq-Compatible Structured Instance}
+\label{app:worked-experiment-certificate}
+
+This appendix records one complete certificate produced by the artifact command recorded in \texttt{results/run\_manifest.json}.
+The selected instance is \(\texttt{fallback\_0000}\). The real lambeq attempt produced 120 local LinearReader graph-only diagrams, but the available Bobcat/DepCCG/CCG parser paths did not produce parsed diagrams for the sample corpus and the reader graphs contain no non-Clifford resource annotations. This appendix is therefore deliberately titled as a fallback lambeq-compatible structured instance rather than a real parsed lambeq resource certificate.
+
+\paragraph{Instance.}
+The instance has identifier \(\texttt{fallback\_0000}\), mode \(\texttt{leaf\_local}\), and sentence label
+\[
+\texttt{fallback\_leaf\_local\_sentence\_with\_16\_word\_modules}.
+\]
+It is a balanced binary parse tree with \(31\) bags, \(16\) word leaves, and \(30\) decomposition edges. The root is \(b0\). The internal bags \(b0,\ldots,b14\) are free grammar-composition tensors. The leaf bags \(b15,\ldots,b30\) contain locally consumed resource word modules.
+
+\paragraph{Graph and decomposition.}
+The graph is the parse tree itself. The decomposition uses one bag per parse-tree node. The parent map is the standard heap-style binary-tree map:
+\[
+p(b_i)=b_{\lfloor (i-1)/2\rfloor}\qquad (1\le i\le 30).
+\]
+The resource assignment \(\alpha\) assigns one resource tensor to each leaf bag \(b15,\ldots,b30\) and no resource tensor to internal bags.
+
+\paragraph{Local costs and active-child certificate.}
+Each leaf resource has certified cost \(\xi_b=1.3\), each internal bag has \(\xi_b=1\), and every local coefficient map has \(\kappa_b=1\). Every leaf resource is locally measured or marginalized into a bounded free feature message before crossing its first separator. Hence all active-child sets are empty:
+\[
+\Act(b)=\emptyset\qquad\text{for every bag }b.
+\]
+The recurrence therefore gives \(\Gamma_b=1.3\) at resource leaves and \(\Gamma_b=1\) at internal bags. Consequently
+\[
+\Lammsg=\log(1.3)=0.262364\ldots,
+\qquad
+\Lambda_{\mathrm{glob}}=16\log(1.3)=4.197828\ldots .
+\]
+The heuristic dense treewidth proxy reported by the artifact is \(\wTN=1\), the effective-width proxy is \(\weff=1\), and the exponent proxies are
+\[
+\weff+2\Lammsg=1.524729\ldots,
+\quad
+2\Lambda_{\mathrm{glob}}=8.395656\ldots,
+\quad
+\weff+2\Lambda_{\mathrm{glob}}=9.395656\ldots .
+\]
+The focused-width proxy for this instance is \(1.0\), using the implemented resource-separator proxy rather than exact focused tree-width.
+
+\begin{center}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+Bag set & Resources & Count & \(\xi_b\) & \(\kappa_b\) & \(\Act(b)\) & \(\Gamma_b\) \\
+\midrule
+\(b0,\ldots,b14\) & no & 15 & 1.0 & 1.0 & \(\emptyset\) & 1.0 \\
+\(b15,\ldots,b30\) & yes & 16 & 1.3 & 1.0 & \(\emptyset\) & 1.3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The artifact also writes the bag-by-bag recurrence table to
+\[
+\texttt{results/worked\_certificate\_recurrence.csv}.
+\]
+For this instance every row of that CSV is determined by the two grouped rows above. This appendix demonstrates the contents of an SLMS certificate: graph/decomposition data, resource assignment, finite local costs, local \(\kappa_b\) factors, active-child declarations, recurrence values, and baseline exponent proxies.

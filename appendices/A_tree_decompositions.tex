@@ -1,0 +1,22 @@
+\section{Tree Decompositions and Separator Accounting}
+\label{app:tree}
+
+This appendix records conventions used in the main text. Let \(G=(V,E)\) be the contraction graph of the scalar network used for \(p_C(x)\). A tree decomposition \((T,\beta)\) is normally defined on vertices of \(G\), but tensor contraction cost is determined by open indices. For a bag \(b\), let \(I_b\) be the set of tensor indices incident to tensors in \(\beta(b)\) that are not fully contracted inside the portion of the elimination represented by \(b\). A dense message on \(I_b\) has dimension \(\prod_{i\in I_b}d_i\).
+
+For bounded-degree qubit networks, vertex width and index width differ by at most constant factors. For language diagrams, however, reductions and word tensors may have nonuniform arity. It is therefore safer to state algorithmic costs in terms of
+\[
+w=\max_{e\in E(T)}\sum_{i\in S_e}\log_2 d_i,
+\]
+where \(S_e\) is the separator index set for the message crossing \(e\).
+
+\subsection{Rooted message convention}
+
+Root \(T\) at \(r\). For an edge \(e=(b\to c)\), remove \(e\) and let \(T_c\) be the component containing \(c\). The message \(m_{c\to b}\) is a tensor on \(S_e\) obtained by contracting all tensors assigned to bags in \(T_c\) and summing all internal indices in that component. The root scalar is obtained by contracting the messages incident to \(r\) with tensors assigned to \(r\).
+
+\subsection{Nice decompositions}
+
+For implementation, it is convenient to convert \((T,\beta)\) to a nice tree decomposition with introduce, forget, join, and leaf bags. This conversion increases the number of bags polynomially and does not increase dense width. The message burden must be transported carefully: introducing auxiliary bags with \(\xi_b=1\), \(\kappa_b=1\), and no active children leaves \(\Lammsg\) unchanged, while splitting a bag with resource tensors requires either keeping the joint assignment at one bag or proving that the split preserves the local expansion and active-child certificates.
+
+\subsection{Hypergraphs}
+
+If a tensor index connects more than two tensors, the contraction structure is a hypergraph. Two standard reductions are possible. One may use a hypertree decomposition directly, or introduce equality/copy tensors to obtain an ordinary graph. The latter can change stabilizer structure: copy tensors in the computational basis are stabilizer tensors, but copy tensors in arbitrary bases need not be free. The main text assumes either ordinary graphs or a hypergraph reduction that preserves the declared free/resource partition.

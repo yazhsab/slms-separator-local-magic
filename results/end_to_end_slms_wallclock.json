@@ -1,0 +1,8 @@
+{
+  "timestamp_utc": "2026-04-26T17:27:55.596684+00:00",
+  "status": "blocked",
+  "real_records_seen": 120,
+  "parser_resource_records": 0,
+  "rows": [],
+  "blocker": "No parser-generated real QNLP records with non-Clifford resource annotations were found. End-to-end SLMS wall-clock benchmarking would be misleading on fallback or LinearReader graph-only data."
+}

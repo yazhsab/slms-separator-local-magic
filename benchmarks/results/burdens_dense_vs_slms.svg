@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="460" viewBox="0 0 980 460">
+<rect width="100%" height="100%" fill="white"/>
+<text x="490.0" y="24" text-anchor="middle" font-family="Arial" font-size="16">Synthetic accounting: dense TN exponent vs SLMS exponent</text>
+<line x1="70" y1="330" x2="960" y2="330" stroke="#333"/>
+<line x1="70" y1="45" x2="70" y2="330" stroke="#333"/>
+<line x1="66" y1="330.00" x2="960" y2="330.00" stroke="#ddd"/>
+<text x="62" y="334.00" text-anchor="end" font-family="Arial" font-size="11">0.0</text>
+<line x1="66" y1="258.75" x2="960" y2="258.75" stroke="#ddd"/>
+<text x="62" y="262.75" text-anchor="end" font-family="Arial" font-size="11">5.5</text>
+<line x1="66" y1="187.50" x2="960" y2="187.50" stroke="#ddd"/>
+<text x="62" y="191.50" text-anchor="end" font-family="Arial" font-size="11">11.0</text>
+<line x1="66" y1="116.25" x2="960" y2="116.25" stroke="#ddd"/>
+<text x="62" y="120.25" text-anchor="end" font-family="Arial" font-size="11">16.5</text>
+<line x1="66" y1="45.00" x2="960" y2="45.00" stroke="#ddd"/>
+<text x="62" y="49.00" text-anchor="end" font-family="Arial" font-size="11">22.0</text>
+<rect x="99.33" y="317.04" width="49.87" height="12.96" fill="#54a24b"/>
+<rect x="158.00" y="310.24" width="49.87" height="19.76" fill="#e45756"/>
+<text x="158.00" y="372" text-anchor="end" transform="rotate(-35 158.00,372)" font-family="Arial" font-size="11">balanced_leaf_local</text>
+<rect x="275.33" y="317.04" width="49.87" height="12.96" fill="#54a24b"/>
+<rect x="334.00" y="276.23" width="49.87" height="53.77" fill="#e45756"/>
+<text x="334.00" y="372" text-anchor="end" transform="rotate(-35 334.00,372)" font-family="Arial" font-size="11">balanced_path_active</text>
+<rect x="451.33" y="317.04" width="49.87" height="12.96" fill="#54a24b"/>
+<rect x="510.00" y="45.00" width="49.87" height="285.00" fill="#e45756"/>
+<text x="510.00" y="372" text-anchor="end" transform="rotate(-35 510.00,372)" font-family="Arial" font-size="11">uniform_chain</text>
+<rect x="627.33" y="317.04" width="49.87" height="12.96" fill="#54a24b"/>
+<rect x="686.00" y="93.25" width="49.87" height="236.75" fill="#e45756"/>
+<text x="686.00" y="372" text-anchor="end" transform="rotate(-35 686.00,372)" font-family="Arial" font-size="11">clustered_subtree</text>
+<rect x="803.33" y="187.43" width="49.87" height="142.57" fill="#54a24b"/>
+<rect x="862.00" y="310.24" width="49.87" height="19.76" fill="#e45756"/>
+<text x="862.00" y="372" text-anchor="end" transform="rotate(-35 862.00,372)" font-family="Arial" font-size="11">stabilizer_compressed_grid_accounting</text>
+<rect x="70" y="425" width="14" height="14" fill="#54a24b"/>
+<text x="90" y="437" font-family="Arial" font-size="12">dense TN exponent</text>
+<rect x="280" y="425" width="14" height="14" fill="#e45756"/>
+<text x="300" y="437" font-family="Arial" font-size="12">SLMS exponent</text>
+</svg>

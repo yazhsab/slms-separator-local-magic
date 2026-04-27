@@ -1,0 +1,71 @@
+\section{Introduction}
+
+The problem studied in this paper is the certificate-based classical simulation of structured quantum tensor networks with localized non-Clifford resource. The motivating examples are compositional quantum-language circuits: circuit or tensor-network families obtained from grammar, discourse, or document composition graphs by assigning tensors, parameterized quantum circuits, states, effects, and measurements to local pieces of a derivation. Such circuits are neither generic quantum circuits nor merely tree tensor networks. Their contraction graphs often inherit strong structural constraints from composition, while local ansatz choices can introduce non-Clifford gates and hence non-stabilizer resource.
+
+Although the motivating examples come from compositional quantum language processing, the main contribution of this paper is a quantum-simulation result. SLMS gives a certificate-based sufficient condition for additive classical simulation of locally marginalizable quantum tensor networks with non-Clifford resource. The relevant physical resources are graph width, stabilizer-compressed boundary dimension, and quasiprobability magic burden. QNLP and QDisCoCirc provide structured circuit families in which these parameters can be studied, but the theorem itself is a statement about classical simulability of quantum tensor networks.
+
+Two classical simulation traditions address different aspects of this situation. Tensor-network simulation, typified by the Markov--Shi treewidth bound \citep{MarkovShi2008}, exploits small contraction width: if a circuit has an underlying graph of treewidth \(w\), amplitudes and probabilities can often be computed in time polynomial in the circuit size and exponential in \(w\). Stabilizer-based and quasiprobability simulation instead exploit low non-stabilizer resource. In this line, the overhead is controlled by quantities such as stabilizer rank, approximate stabilizer rank, stabilizer extent, robustness of magic, dyadic negativity, or quasiprobability norm \citep{PashayanWallmanBartlett2015,BravyiGosset2016,HowardCampbell2017,BravyiEtAl2019,SeddonEtAl2021}. The theorem in this paper uses one primitive operational measure: a free-tensor quasiprobability \(\ell_1\) norm. Other magic measures enter only as ways to instantiate or upper-bound that cost.
+
+Existing bounds are insufficient for compositional language circuits because they miss a combined structural-resource effect. Treewidth-only bounds ignore the distribution of non-stabilizer resource and the possibility of stabilizer compression inside separators. Global-magic bounds ignore compositional localization: they charge the global product or global rank even when different resource tensors sit in separated modules and can be locally marginalized before their effects reach high-level separators. Qualitative QNLP hardness results, while important, do not by themselves identify a quantitative frontier between easy and hard structured instances.
+
+An abstract definition of separator-local burden using ``valid message support sets'' is too broad for a theorem, because validity already encodes the desired message-cost bound. The present construction replaces it with a recurrence. Given a rooted tree decomposition, local bag costs \(\xi_b\), local coefficient-map norm factors \(\kappa_b\), and certified active-child sets \(\Act(b)\), define message costs
+\[
+\Gamma_b=\kappa_b\xi_b\prod_{c\in\Act(b)}\Gamma_c,
+\qquad
+\Lammsg(C,\T)=\max_b\log\Gamma_b.
+\]
+Inactive child subtrees are required, by definition of the restricted class, to be locally compressed or marginalized into bounded messages before they reach \(b\). This makes \(\Lammsg\) a computable certificate from graph/resource data and local marginalization declarations, not a restatement of the theorem.
+
+The theorem proved here applies only to \emph{locally marginalizable resource-decomposition networks}. These networks have stabilizer/free regions that can be compressed to an effective boundary of size \(\weff\), and their resource expansions obey the active-child recurrence above. For such certified networks, SLMS estimates a scalar output probability \(p_C(x)\) to additive error \(\eps\) and failure probability \(\delta\) in time
+\[
+\wt{O}\!\left(
+\poly(|C|)\eps^{-2}\log(1/\delta)
+2^{O(\weff)}
+\exp(2\Lammsg(C,\T))
+\right).
+\]
+The factor \(\exp(2\Lammsg)\) is displayed because the scalar estimator has second moment bounded by \(\Gamma_r^2\) under the convention \(\Lammsg=\max_b\log\Gamma_b\). The theorem is a restricted separator-local dequantisation criterion: it identifies an easy regime when the required certificates are supplied or verified. The broader claim that arbitrary compositional circuits admit separator-local factorization is stated separately as a conjectural extension.
+
+The active-child recurrence is a junction-tree-style collect recurrence, not a new dynamic-programming paradigm by itself. The specific SLMS certificate combines that message-passing skeleton with finite local quasiprobability dictionaries, stabilizer-compressed boundaries, local \(\kappa_b\) norm certificates, and semantics for when resource labels are consumed before crossing separators.
+
+SLMS is useful because it produces an auditable sufficient certificate. It does not optimize over all possible simulation strategies and it is not intended to replace focused-width, ZX, stabilizer-rank, or stabilizer tensor-network methods. Instead, it records when local non-Clifford resource is consumed before loading high-level separators. This is precisely the information needed to distinguish a global quasiprobability burden from a separator-local message burden.
+
+The decisive comparison is not only with global-magic sampling but also with dense tensor-network contraction. If the width in the theorem were ordinary dense tensor-network width, then ordinary contraction would already give a Markov--Shi-style bound with no magic factor. We therefore distinguish \(\wTN\), the dense tensor-network separator width for a chosen decomposition, from \(\weff\), the effective boundary width after stabilizer compression, and from \(\wTNopt\), the optimal dense treewidth-type parameter of the contraction graph. SLMS is potentially useful when \(\weff+2\Lammsg\ll \wTNopt\), or when \(\Lammsg\) is much smaller than the global quasiprobability burden. If \(\weff=\wTN\) and dense treewidth is already small, the theorem need not improve over ordinary tensor-network contraction. We do not claim that SLMS supersedes focused tree-width, focused rank-width, ZX-calculus partitioning, stabilizer-rank, or stabilizer tensor-network simulation methods; these are required comparison baselines for any empirical evaluation.
+
+\paragraph{Contributions.}
+The paper makes the following six contributions.
+
+\begin{enumerate}[label=\textbf{Contribution \arabic*:},leftmargin=2.5cm]
+\item \textbf{Formal model.}
+Define compositional quantum language circuits as tensor-network/circuit families indexed by grammar, discourse, or document composition graphs. Define contraction graphs, rooted tree decompositions, dense separator width \(\wTN\), and stabilizer-compressed effective width \(\weff\).
+
+\item \textbf{Explicit separator-local burden.}
+Replace the earlier (implicit) valid-support definition with an explicit message burden \(\Lammsg(C,\T)\) obtained from local quasiprobability costs and active-child recurrence certificates.
+
+\item \textbf{Locally marginalizable networks.}
+Define a restricted class of resource-decomposition networks in which inactive child subtrees are locally compressed or marginalized before their resource randomness crosses parent separators.
+
+\item \textbf{Restricted separator-local simulation theorem.}
+Prove a scalar-estimator simulation theorem for locally marginalizable compositional tensor networks, with runtime controlled by \(\weff\) and the explicit sampling factor \(\exp(2\Lammsg)\).
+
+\item \textbf{QNLP specialization.}
+Specialize the framework to QDisCoCirc/lambeq-style circuits when their grammar-induced local resource modules satisfy local marginalizability, while stating clearly that general QDisCoCirc circuits may violate the condition.
+
+\item \textbf{Pedagogical examples and reproducible certificate evidence.}
+Give pedagogical examples separating the message burden from global quasiprobability burden and from dense treewidth parameters in stabilizer-compressible networks. These examples are not claimed to beat stabilizer-aware or ZX-based simulators. Provide lightweight scripts, synthetic accounting outputs, and an executable certificate-evidence pipeline that attempts real lambeq mode and honestly falls back to structured lambeq-compatible instances when lambeq is unavailable. No hardware, runtime, or quantum-advantage data are claimed.
+\end{enumerate}
+
+\paragraph{Core novelty.}
+SLMS is not a new tree-decomposition algorithm by itself. Its novelty is a checkable sufficient certificate that combines junction-tree-style message passing with local quasiprobability \(\ell_1\) costs, stabilizer-compressed separator width, and explicit local marginalization declarations. This yields an auditable parameter \(\weff+2\Lammsg\) for identifying classically easy structured quantum tensor-network instances.
+
+\paragraph{Relation to QDisCoCirc hardness.}
+Laakkonen, Meichanetzidis, and Coecke prove conditional BQP-hardness for QDisCoCirc question-answering under explicit assumptions on word ans\"atze and entangling grammatical components \citep{LaakkonenMeichanetzidisCoecke2024}. Our aim is orthogonal. Rather than proving another qualitative hardness result, we ask when such compositional circuits remain classically simulable once both graph structure and non-stabilizer resource localization are accounted for. The locally marginalizable theorem identifies one easy regime; the broader separator-local factorization principle remains a conjecture for more general QDisCoCirc-like families.
+
+\paragraph{Relation to dequantization.}
+Recent dequantization results show that many structured variational and quantum machine-learning models are classically tractable once their effective dimension, tensor-network structure, or algebraic closure is exposed \citep{Tang2019,ChiaEtAl2020,Tang2022,ShinTeoJeong2024}. We therefore do not treat classical simulability as a weakness of the model. Instead, we make simulability the object of study. SLMS is a restricted separator-local dequantisation and certification framework: the cost is governed not only by total non-stabilizer resource but by how that resource is distributed relative to certified separators of the compositional graph.
+
+\paragraph{What is not claimed.}
+This paper does not claim unconditional quantum advantage. It does not claim that legal AI benefits from quantum computation. It does not claim exponential compression from amplitude encoding. It does not present standard tensor-network, stabilizer-rank, robustness, or quasiprobability facts as new theorems. It treats stabilizer R\'enyi entropy as a diagnostic unless an operational simulation link is explicitly established. The SLMS certificate is sufficient, not necessary: when the certificate fails on an instance, no claim is made about that instance's classical hardness, only that this particular sufficient condition does not apply; competing simulators (focused tree-width, ZX-based, stabilizer-tensor-network) may still simulate it efficiently. Conversely, a small \(\weff+2\Lammsg\) on an instance only certifies an easy regime under SLMS; it does not imply an advantage over those simulators.
+
+\paragraph{Organization.}
+Section~\ref{sec:related} positions the work. Section~\ref{sec:model} defines circuits, contraction graphs, decompositions, free tensors, and resource tensors. Section~\ref{sec:sep-local} defines \(\weff\), local marginalizability, and \(\Lammsg\). Section~\ref{sec:algorithm} gives SLMS as a certificate-based scalar estimator, with message-table estimation separated as an implementation option. Section~\ref{sec:main-theorem} proves the main theorem and states the broader conjecture. Section~\ref{sec:qnlp} specializes the framework to restricted QNLP families. Section~\ref{sec:benchmarks} gives the accounting and certificate-evidence artifacts, and Sections~\ref{sec:limitations}--\ref{sec:conclusion} discuss limitations and conclusions.

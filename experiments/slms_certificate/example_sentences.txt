@@ -1,0 +1,131 @@
+Alice likes Bob.
+The curious student reads a paper.
+Quantum circuits compose grammatical meanings.
+The lawyer reviews the document carefully.
+A short sentence tests the parser.
+The researcher compares tensor networks.
+Bobcat parses simple sentences.
+The model measures a local resource.
+Structured language diagrams form trees.
+The simulator records certificate failures.
+Alice writes a short note.
+Bob reads the note.
+Clara studies quantum grammar.
+Daniel checks the tensor shape.
+The parser returns a diagram.
+The diagram contains word boxes.
+Each word contributes a local map.
+The sentence has a simple subject.
+The verb connects two nouns.
+The object carries a noun type.
+Researchers test reproducible scripts.
+The artifact records every warning.
+The certificate checks active children.
+The tree decomposition has bags.
+The root bag sends a message.
+The child bag may be inactive.
+Local marginalization removes randomness.
+Global sampling keeps all resources.
+The dense baseline estimates width.
+The hybrid baseline keeps global burden.
+Focused width is only proxied here.
+ZX tools are not invoked.
+STN tools are not invoked.
+The experiment avoids fake results.
+The manifest stores exact commands.
+A reviewer can rerun the pipeline.
+The sentence list is intentionally small.
+The parser may fail to download.
+The failure report records exceptions.
+The fallback generator makes trees.
+Balanced trees test local resources.
+Path active trees test long messages.
+Chains test global active behavior.
+Clusters test subtree resources.
+Dense cases test no advantage.
+Failure cases test certificate rejection.
+The student asks a question.
+The teacher answers carefully.
+The committee reviews the submission.
+The editor checks the claims.
+The author revises the appendix.
+The theorem states a sufficient condition.
+The proof uses a recurrence.
+The recurrence resembles junction trees.
+The lift uses quasiprobability norms.
+The variance bound squares the burden.
+The exponent uses two lambda message.
+The baseline table states limitations.
+The paper avoids dominance claims.
+The conclusion is conservative.
+The package includes tests.
+The test checks finite burdens.
+The plot script draws histograms.
+The results file stores rows.
+The summary file stores medians.
+The manifest stores the mode.
+The environment file stores packages.
+The log file stores parser details.
+The appendix shows one certificate.
+The bags have xi values.
+The bags have kappa values.
+The active set can be empty.
+The active set can be large.
+The global burden may grow.
+The message burden may remain small.
+The dense width may dominate.
+The SLMS proxy may improve.
+The focused proxy is diagnostic.
+The lambeq parser is optional.
+The Bobcat parser is preferred.
+The alternative parser may load.
+The script handles import errors.
+The script handles parser errors.
+The script handles extraction errors.
+The graph extractor is best effort.
+The resource heuristic is documented.
+The certificate engine is deterministic.
+The fallback seed is fixed.
+The run is reproducible.
+The generated data is not proof of coverage.
+The fallback data is synthetic.
+The structured instances mimic grammar trees.
+The real parser would improve relevance.
+The current package separates modes.
+The auto mode tries real first.
+The auto mode falls back honestly.
+The real mode fails if unavailable.
+The fallback mode never claims real parsing.
+The dense contraction tool may be absent.
+The cotengra package may be absent.
+The opt einsum package may be absent.
+The package records optional tools.
+The plots use generated data.
+The paper cites prior work.
+The related work names QDisCoCirc.
+The related work names lambeq.
+The related work names Markov Shi.
+The related work names Pashayan.
+The related work names focused width.
+The related work names ZX partitioning.
+The related work names stabilizer networks.
+The limitation section states gaps.
+The todo file states blockers.
+The response memo maps criticisms.
+The acceptance score is honest.
+The build report records compilation.
+The artifact manifest lists outputs.
+The README gives commands.
+The changelog lists changes.
+The scripts avoid hidden data.
+The results are machine readable.
+The figures are regenerated.
+The examples are auditable.
+The theorem remains unchanged.
+The framing remains certificate based.
+The estimator depends on squared norm.
+The local certificates are sufficient.
+The failure of a certificate is inconclusive.
+The benchmark is a proxy comparison.
+The wall clock simulator is absent.
+The package is ready for review.

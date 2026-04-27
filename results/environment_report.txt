@@ -1,0 +1,26 @@
+SLMS Environment Report
+timestamp_utc: 2026-04-26T17:26:58.509375+00:00
+python_executable: /private/tmp/slms_lambeq_py311/bin/python
+python_version: 3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.3.19.1)]
+core_available: True
+lambeq_available: True
+parser_available: True
+preferred_parser: BobcatParser
+parser_error: None
+
+Packages:
+- numpy: available=True version=2.4.4 error=None
+- pandas: available=True version=3.0.2 error=None
+- networkx: available=True version=3.6.1 error=None
+- matplotlib: available=True version=3.10.9 error=None
+- yaml: available=True version=6.0.3 error=None
+- opt_einsum: available=True version=3.4.0 error=None
+- cotengra: available=False version=None error=None
+- lambeq: available=True version=0.5.0 error=None
+- discopy: available=True version=1.2.2 error=None
+- qiskit: available=False version=None error=None
+- pytket: available=False version=None error=None
+- pytest: available=False version=None error=None
+- pyzx: available=True version=0.10.0 error=None
+- qdiscocirc: available=False version=None error=None
+- qdisco_circ: available=False version=None error=None

@@ -1,0 +1,82 @@
+\documentclass[a4paper,onecolumn,allowtoday]{quantumarticle}
+\pdfoutput=1
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{microtype}
+\emergencystretch=3em
+\usepackage{tikz}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{authblk}
+
+\input{macros}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem{openproblem}[theorem]{Open Problem}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{stackdefinition}[theorem]{Definition}
+
+\title{Separator-Local Treewidth--Magic Simulation of Compositional Quantum Language Circuits}
+\author[1]{Prabakaran Kannan\thanks{Corresponding author: \href{mailto:cs23d2005@nitpy.ac.in}{cs23d2005@nitpy.ac.in}. ORCID: \href{https://orcid.org/0009-0008-0487-3825}{0009-0008-0487-3825}.}}
+\author[1]{Venkatesan M. Sundaram\thanks{ORCID: \href{https://orcid.org/0000-0002-1651-7093}{0000-0002-1651-7093}.}}
+\author[2]{Prabhavathy P.\thanks{ORCID: \href{https://orcid.org/0000-0002-5982-8983}{0000-0002-5982-8983}.}}
+\affil[1]{Department of Computer Science and Engineering, National Institute of Technology Puducherry, Karaikal 609609, India}
+\affil[2]{School of Computer Science and Engineering, Vellore Institute of Technology, Vellore 632014, India}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Structured quantum tensor networks can combine large contraction graphs with localized non-Clifford resource. This paper develops Separator-Local Treewidth--Magic Simulation (SLMS), a checkable sufficient certificate for additive classical simulation of locally marginalizable quantum tensor networks with non-Clifford resource. The motivating examples come from compositional quantum-language circuits, including lambeq- and QDisCoCirc-style constructions, but the main result is a quantum-simulation theorem about output probabilities of structured tensor networks. SLMS combines a junction-tree-style collect recurrence with finite free-tensor quasiprobability dictionaries, stabilizer-compressed separator boundaries, and explicit local marginalization certificates. For a rooted tree decomposition, local quasiprobability costs \(\xi_b\), certified local norm factors \(\kappa_b\), and active-child sets \(\Act(b)\) define a message burden \(\Lammsg(C,\T)\) through a recurrence for message \(\ell_1\) norms. For certified inputs, stabilizer components are contracted using an effective boundary width \(\weff\), while only active quasiprobability variables contribute to sampling variance. We prove that output probabilities can be estimated to additive error \(\eps\) and failure probability \(\delta\) in time
+\[
+\wt{O}\!\left(\poly(|C|)\eps^{-2}\log(1/\delta)2^{O(\weff)}
+\exp(2\Lammsg(C,\T))\right),
+\]
+where \(\Lammsg=\max_b\log\Gamma_b\); the factor \(\exp(2\Lammsg)\) is the explicit scalar-sampling dependence. The certificate is sufficient, not necessary: success certifies an easy regime for this estimator, while failure is not a hardness statement. The accompanying artifact gives pedagogical examples, a stabilizer-compressed grid parameter separation from dense treewidth bounds, fallback structured certificate instances, negative controls, generated CSV files, plots, environment logs, parser-failure logs, and comparator diagnostics. Parser-level lambeq extraction was attempted but unavailable in the executed environment, so the nontrivial certificate evidence is reported on 120 fallback lambeq-compatible structured instances rather than real parser-generated diagrams. The comparator rows are diagnostics or upper-bound proxies unless explicitly stated otherwise. No unconditional quantum advantage, generic lambeq/QDisCoCirc coverage, or dominance over focused-width, ZX-calculus, stabilizer-rank, or stabilizer-tensor-network methods is claimed.
+\end{abstract}
+
+\input{sections/00_popular_summary}
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_model}
+\input{sections/04_separator_local_magic}
+\input{sections/05_algorithm}
+\input{sections/06_main_theorem}
+\input{sections/07_qnlp_specialization}
+\input{sections/08_benchmarks}
+\input{sections/09_limitations}
+\input{sections/10_conclusion}
+
+\section*{Declarations}
+
+\paragraph*{Funding.} This work received no external funding.
+
+\paragraph*{Competing interests.} The authors declare no competing interests.
+
+\paragraph*{Code and data availability.} The source code, experiment scripts, generated CSV files, plots, environment logs, parser-failure logs, and worked-certificate data are archived at [Zenodo DOI to be inserted after release] and mirrored at [GitHub URL to be inserted after release]. The repository also contains a hard-blocker ledger distinguishing exact unavailable baselines from implemented proxy diagnostics.
+
+\appendix
+\input{appendices/A_tree_decompositions}
+\input{appendices/B_stabilizer_decompositions}
+\input{appendices/C_variance_bounds}
+\input{appendices/D_qnlp_graph_extraction}
+\input{appendices/E_additional_examples}
+\input{appendices/F_certification_algorithms}
+\input{appendices/G_worked_certificate}
+\input{appendices/H_reproducibility_artifact}
+
+\bibliographystyle{quantum}
+\bibliography{refs}
+
+\end{document}

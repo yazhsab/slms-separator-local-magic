@@ -1,0 +1,32 @@
+{
+  "timestamp_utc": "2026-04-26T17:27:50.736814+00:00",
+  "source_manifest": "/Users/prabakarankannan/research/papers/paper/results/run_manifest.json",
+  "lambeq_status": {
+    "used_lambeq": true,
+    "lambeq_available": true,
+    "parser_available": true,
+    "parser_name": "cups_reader",
+    "real_instances": 120,
+    "extraction_mode": "linear_reader_not_parser",
+    "failure_reason": "",
+    "parser_failure_reason": "real_lambeq_parser_failed: WebParseError: Web parser could not parse 'Alice likes Bob.'",
+    "parser_failure_parser_name": "WebParser",
+    "reader_note": "lambeq LinearReader output; not CCG/Bobcat/DepCCG parsed diagrams"
+  },
+  "lambeq_instances_total": 120,
+  "parser_generated_lambeq_instances": 0,
+  "qdiscocirc_candidates": {
+    "qdiscocirc": {
+      "available": false,
+      "error": "module_not_found"
+    },
+    "qdisco_circ": {
+      "available": false,
+      "error": "module_not_found"
+    }
+  },
+  "qdiscocirc_instances": 0,
+  "resource_instances": 0,
+  "status": "blocked",
+  "blocker": "No parser-generated lambeq/QDisCoCirc resource instances are available in this environment. lambeq reader instances, when present, are graph-only and carry no non-Clifford resource annotations."
+}

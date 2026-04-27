@@ -1,0 +1,35 @@
+\section{Reproducibility and Artifact Guide}
+\label{app:reproducibility-artifact}
+
+The release artifact is intended to accompany the paper as executable evidence for the certificate computations, not as evidence of general parser-level QNLP coverage. The public repository URL is [GitHub URL to be inserted after release], and the archival record is [Zenodo DOI to be inserted after release].
+
+\paragraph{One-command certificate run.}
+From the repository root, run
+\[
+\texttt{python experiments/slms\_certificate/run\_all.py --mode auto}.
+\]
+The verified environment used a Python 3.11 virtual environment at \texttt{/tmp/slms\_lambeq\_py311}; the same command also works with a compatible Python environment containing the packages listed in \texttt{experiments/slms\_certificate/requirements.txt}.
+
+\paragraph{Real lambeq mode and fallback mode.}
+The \texttt{--mode real} path attempts parser-generated lambeq extraction and fails honestly if parser backends or model files are unavailable. The \texttt{--mode fallback} path runs fallback structured lambeq-compatible instances. The \texttt{--mode auto} path tries real extraction first and then falls back, recording the selected path in \texttt{results/run\_manifest.json}. In the executed run reported in this paper, parser-generated lambeq/QDisCoCirc resource instances were unavailable; fallback structured instances are therefore the primary nontrivial certificate evidence.
+
+\paragraph{Expected outputs.}
+The main output files are
+\[
+\begin{array}{ll}
+\texttt{results/slms\_certificate\_results.csv} & 120\ \text{rows},\\
+\texttt{results/slms\_certificate\_failures.csv} & 15\ \text{rows},\\
+\texttt{results/baseline\_results.csv} & 1680\ \text{rows},\\
+\texttt{results/fallback\_instances.json} & 120\ \text{instances},\\
+\texttt{results/real\_lambeq\_instances.json} & 120\ \text{LinearReader sidecar instances},\\
+\texttt{results/worked\_certificate\_recurrence.csv} & \text{worked certificate rows}.
+\end{array}
+\]
+The plots are regenerated with
+\[
+\texttt{python experiments/slms\_certificate/plot\_results.py}
+\]
+and written to \texttt{figures/}.
+
+\paragraph{Hard blockers.}
+The files \texttt{hard\_blocker\_ledger.md}, \texttt{lambeq\_parser\_blocker\_report.md}, \texttt{zx\_baseline\_blocker\_report.md}, and \texttt{stn\_mast\_blocker\_report.md} record unavailable external components. In particular, the artifact does not contain parser-generated lambeq/QDisCoCirc resource instances, an exact Sutcliffe--Kissinger ZX cutting or partitioning implementation, or exact Masot-Llima/Nakhl STN/MAST implementations. The reported ZX and STN rows are proxy diagnostics unless explicitly stated otherwise.

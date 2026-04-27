@@ -1,0 +1,156 @@
+\section{Separator-Local Magic}
+\label{sec:sep-local}
+
+\subsection{Dense and effective widths}
+
+The ordinary tensor-network baseline uses dense separator dimension.
+
+\begin{definition}[Dense tensor-network width]
+Root a tree decomposition \(\T=(T,\beta)\). For an oriented edge \(e=(b\to c)\), let \(S_e^{\mathrm{TN}}\) be the full set of tensor indices crossing the cut between the subtree of \(c\) and the rest of \(T\). The dense tensor-network width is
+\[
+\wTN(\T)=\max_{e\in E(T)}\sum_{i\in S_e^{\mathrm{TN}}}\log_2 d_i .
+\]
+\end{definition}
+
+SLMS uses stabilizer compression before forming dense boundary tables. Informally, Clifford/stabilizer degrees of freedom that can be represented by tableaux or affine stabilizer constraints are not counted as dense boundary coordinates.
+
+\begin{definition}[Effective stabilizer-compressed width]
+For each oriented edge \(e\), suppose the SLMS preprocessing supplies a boundary representation
+\[
+\mathcal H(S_e^{\mathrm{TN}})
+\cong
+\mathcal H_e^{\mathrm{free}}\otimes \mathcal H_e^{\mathrm{act}},
+\]
+where the free factor is represented symbolically by stabilizer data and only the active factor is represented densely. Let \(D_e^{\mathrm{act}}=\dim \mathcal H_e^{\mathrm{act}}\). The effective width of the certified representation is
+\[
+\weff(\T)=\max_{e\in E(T)}\log_2 D_e^{\mathrm{act}}.
+\]
+\end{definition}
+
+This definition is certificate-based. If no stabilizer compression certificate is supplied, one may take \(\weff=\wTN\). The theorem is then still correct, but it may not improve on ordinary dense contraction.
+
+\subsection{Free-tensor quasiprobability cost}
+
+\begin{definition}[Free-tensor quasiprobability norm]
+For each tensor type \(\tau\), where \(\tau\) records input/output boundary type, fix an algorithmic free dictionary
+\[
+\mathcal F_\tau=\{F_{\tau,1},\ldots,F_{\tau,m_\tau}\}
+\]
+of normalized free tensors, or an oracle that returns a certified finite list of free tensors for the resource tensor under consideration. For a tensor \(A\) of type \(\tau\), define the dictionary-dependent cost
+\[
+\xi_{\mathrm{qp}}(A)
+=
+\inf\left\{
+\sum_j |a_j|:
+A=\sum_j a_j F_j,\;
+F_j\in\mathcal F_\tau
+\right\}.
+\]
+In the algorithmic theorem, the input is not the infimum itself but a certified finite expansion whose \(\ell_1\) cost upper-bounds \(\xi_{\mathrm{qp}}(A)\).
+\end{definition}
+
+Continuous free sets may be useful conceptually, for example when a representation admits many equivalent stabilizer descriptions. The simulator, however, uses only finite certified representations. All costs \(\xi(A)\), \(\xi_b\), and \(\Lammsg\) are therefore certificate-dependent quantities relative to the chosen dictionaries or finite expansion oracle.
+
+Let \(\R(C)\) be the set of resource tensors after free preprocessing. A resource tensor \(A\) is supplied with a free-tensor expansion
+\[
+A=\sum_{j=1}^{m_A} a_{A,j}F_{A,j},
+\]
+where \(F_{A,j}\) is a compatible stabilizer/free tensor. The certified local cost is
+\[
+\xi(A)=\sum_j |a_{A,j}|,
+\]
+an explicit upper bound on \(\xi_{\mathrm{qp}}(A)\). Stabilizer extent, robustness of magic, and dyadic negativity are not separate primitives in the theorem; they are useful when they provide certified free-tensor quasiprobability decompositions or upper bounds.
+
+\begin{definition}[Resource assignment and bag cost]
+Given \((T,\beta)\), a resource assignment is a map
+\[
+\alpha:\R(C)\to V(T)
+\]
+such that \(A\in\beta(\alpha(A))\). For a bag \(b\), let \(\R_b=\alpha^{-1}(b)\). The bag cost is
+\[
+\xi_b=\prod_{A\in\R_b}\xi(A),
+\]
+or any smaller certified joint \(\ell_1\) cost for the product of tensors in \(\R_b\).
+\end{definition}
+
+\subsection{Local marginalization certificates}
+
+The explicit part of the framework is a declaration, checked locally by the algorithm, of which child messages still carry unresolved quasiprobability choices.
+
+\begin{definition}[Active-child certificate]
+For each bag \(b\), let \(\ch(b)\) denote its children in the rooted tree. An active-child certificate specifies a subset
+\[
+\Act(b)\subseteq \ch(b).
+\]
+Children in \(\Act(b)\) are allowed to pass unresolved quasiprobability mixtures into the message emitted by \(b\). Children outside \(\Act(b)\) must be locally marginalized before \(b\) emits its parent message: their contribution is represented as a normalized free message or as a deterministic dense table on the certified effective boundary, with no unresolved quasiprobability coefficient passed upward.
+\end{definition}
+
+This is a restriction on the circuit and on the chosen contraction strategy. It is not automatic. If a child subtree cannot be marginalized or compressed at \(b\), it must be included in \(\Act(b)\).
+
+\begin{definition}[Locally marginalizable network]
+\label{def:lm-network}
+A resource-decomposition network with circuit \(C\), decomposition \(\T\), resource assignment \(\alpha\), bag costs \(\xi_b\), local norm factors \(\kappa_b\ge 1\), and active-child sets \(\Act\) is locally marginalizable if the following certified conditions hold for every bag \(b\):
+\begin{enumerate}[leftmargin=1.2cm]
+\item the local resource tensors assigned to \(b\) have a free expansion of cost \(\xi_b\);
+\item every inactive child \(c\notin\Act(b)\) is consumed by a local marginalization map at \(b\) whose output is a normalized free or deterministic active-boundary message;
+\item the local contraction map taking the bag expansion, active child free representatives, inactive child deterministic messages, and local free tensors to the outgoing message has certified coefficient norm at most \(\kappa_b\) on normalized free representatives;
+\item every outgoing message has dense active dimension at most \(2^{\weff}\).
+\end{enumerate}
+\end{definition}
+
+The third item is the explicit sufficient condition used in the proof. In practice it can be certified by normalizing local effects and by bounding the relevant boundary-map norm. The nonexpansive case is \(\kappa_b=1\). Appendix~\ref{app:kappa-example} gives finite-dictionary examples with \(\kappa_b=1\) for stochastic/free marginalization and \(\kappa_b>1\) for a change of free representative basis.
+
+\subsection{Message burden}
+
+\begin{definition}[Message burden]
+For a locally marginalizable network, define \(\Gamma_b\) recursively from the leaves to the root by
+\[
+\Gamma_b=\kappa_b\xi_b\prod_{c\in\Act(b)}\Gamma_c .
+\]
+The separator-local message burden is
+\[
+\Lammsg(C,\T)=\max_{b\in V(T)}\log \Gamma_b .
+\]
+The global quasiprobability burden is
+\[
+\Lambda_{\mathrm{glob}}(C,\T)=\sum_{b\in V(T)}\log \xi_b .
+\]
+The additional certified local norm burden is
+\[
+\Lambda_{\kappa}(C,\T)=\sum_{b\in V(T)}\log\kappa_b .
+\]
+\end{definition}
+
+Because the scalar estimator is controlled by a second moment, the runtime theorem uses \(\exp(2\Lammsg)\), not \(\exp(\Lammsg)\). Thus \(\Lammsg\) is the logarithm of an \(\ell_1\) message norm, while \(2\Lammsg\) is the corresponding sampling exponent.
+
+\begin{center}
+\scriptsize
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+Quantity & Meaning & Used for \\
+\midrule
+\(\wTN\) & dense separator width for a chosen decomposition & dense tensor-network proxy \\
+\(\wTNopt\) & optimized dense treewidth-type parameter & Markov--Shi-style comparison \\
+\(\weff\) & certified dense active width after stabilizer compression & SLMS per-sample boundary cost \\
+\(\xi_b\) & certified local free-tensor \(\ell_1\) cost at bag \(b\) & local quasiprobability expansion \\
+\(\kappa_b\) & certified local coefficient-map expansion factor & local contraction/marginalization cost \\
+\(\Act(b)\) & children whose resource labels remain unresolved at \(b\) & message recurrence \\
+\(\Gamma_b\) & certified outgoing message \(\ell_1\) norm bound & variance control \\
+\(\Lammsg\) & \(\max_b\log\Gamma_b\) & SLMS sampling exponent \(2\Lammsg\) \\
+\(\Lambda_{\mathrm{glob}}\) & \(\sum_b\log\xi_b\) & global quasiprobability proxy \\
+\bottomrule
+\end{tabular}
+}
+\end{center}
+
+The recurrence is explicit: \(\Gamma_b\) is computed from bag costs, local norm factors, and the active-child certificate. If \(\Act(b)=\ch(b)\) for all \(b\), the root burden reproduces the global product over the tree, including the certified \(\kappa_b\) factors. If \(|\Act(b)|\le 1\) for all \(b\), then
+\[
+\Lammsg(C,\T)\le
+\max_{\pi\ \mathrm{root\text{-}leaf\ path}}\sum_{b\in\pi}(\log\xi_b+\log\kappa_b),
+\]
+the path-local burden. If \(\Act(b)=\emptyset\) for all internal bags and only local resources remain active inside their own bags, then \(\Lammsg=\max_b(\log\xi_b+\log\kappa_b)\).
+
+\subsection{General separator-local conjecture}
+
+Definitions based on valid support sets are not used in the theorem. They remain only a conjectural target: for more general message estimators, one may hope to replace the active-child product by a sharper separator support rule. Such a parameter requires a concrete estimator and an explicit proof. The present paper proves the active-child recurrence theorem and treats broader separator factorization as open.

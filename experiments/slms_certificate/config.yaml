@@ -1,0 +1,20 @@
+seed: 7
+max_sentences: 120
+fallback:
+  num_instances: 120
+  min_depth: 2
+  max_depth: 6
+  xi_resource: 1.30
+  xi_path: 1.18
+  kappa_default: 1.0
+  modes:
+    - leaf_local
+    - path_active
+    - chain_active
+    - clustered
+    - grid_stabilizer_compressed
+    - dense_like_active
+    - local_failure
+    - mixed
+plots:
+  dpi: 160

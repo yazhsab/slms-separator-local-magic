@@ -1,0 +1,300 @@
+\section{Main Theorem and Separations}
+\label{sec:main-theorem}
+
+This section proves the main theorem for locally marginalizable resource-decomposition networks. The result is not a theorem for arbitrary compositional circuits. The broader separator-factorization principle is isolated as Conjecture~\ref{conj:general-separator}.
+
+\begin{theorem}[Free-region compression]
+\label{thm:free-compression}
+Let \(H\) be a connected free stabilizer subnetwork whose outgoing boundary has certified effective active dimension at most \(2^{\weff}\). Then the boundary message of \(H\) can be computed or represented in time \(\poly(|H|)2^{O(\weff)}\), using stabilizer data for the free boundary degrees of freedom, without increasing any quasiprobability cost.
+\end{theorem}
+
+\begin{proof}
+Free stabilizer tensors are closed under tensor product, composition, Clifford conjugation, Pauli measurement, and partial trace. A connected free subnetwork therefore represents a stabilizer state, effect, channel, or affine stabilizer relation on its boundary. Standard stabilizer-tableau simulation gives a symbolic representation in time polynomial in \(|H|\). If the certified representation leaves an active dense boundary factor of dimension \(D\le 2^{\weff}\), extracting or updating the dense active table costs \(D^{O(1)}=\allowbreak 2^{O(\weff)}\). No resource expansion is introduced, so the quasiprobability cost is unchanged.
+\end{proof}
+
+\begin{lemma}[Local quasiprobability expansion]
+\label{lem:bag-expansion}
+Let \(b\) be a bag with assigned resource tensors \(\R_b\). If each \(A\in\R_b\) admits a free-tensor expansion \(A=\sum_j a_{A,j}F_{A,j}\) of cost \(\xi(A)\), then the product of resource tensors assigned to \(b\) admits a free-tensor expansion of cost at most
+\[
+\xi_b=\prod_{A\in\R_b}\xi(A).
+\]
+If an optimized joint expansion is supplied, \(\xi_b\) may be replaced by its certified joint \(\ell_1\) cost.
+\end{lemma}
+
+\begin{proof}
+Taking the tensor product or local composition of the individual expansions gives
+\[
+\prod_{A\in\R_b}A
+=\sum_{(j_A)}
+\left(\prod_{A\in\R_b}a_{A,j_A}\right)
+\left(\prod_{A\in\R_b}F_{A,j_A}\right).
+\]
+The free tensor class is closed under the local compositions used inside a bag. The \(\ell_1\) cost is bounded by
+\[
+\sum_{(j_A)}\prod_A |a_{A,j_A}|
+=\prod_A\sum_{j_A}|a_{A,j_A}|
+=\prod_A\xi(A).
+\]
+\end{proof}
+
+\begin{stackdefinition}[Message burden]
+\label{def:constructive-burden}
+For a locally marginalizable network, define
+\[
+\Gamma_b=\kappa_b\xi_b\prod_{c\in\Act(b)}\Gamma_c
+\]
+from leaves to root, and
+\[
+\Lammsg(C,\T)=\max_{b\in V(T)}\log\Gamma_b .
+\]
+\end{stackdefinition}
+
+\begin{lemma}[Message expansion and second-moment recurrence]
+\label{lem:message-recurrence}
+For every bag \(b\) in a locally marginalizable resource-decomposition network, the outgoing message \(M_b\) has an expansion
+\[
+M_b=\sum_{\omega\in\Omega_b} q_b(\omega) F_{b,\omega}
+\]
+where \(F_{b,\omega}\) are normalized free representatives on the certified active boundary, and
+\[
+\sum_{\omega\in\Omega_b}|q_b(\omega)|\le \Gamma_b .
+\]
+Consequently a single-sample unbiased estimator of any normalized entry or normalized linear functional of \(M_b\) has second moment at most \(\Gamma_b^2\).
+\end{lemma}
+
+\begin{proof}
+Proceed by induction from the leaves. For a leaf, the only unresolved quasiprobability choices are those in the local bag expansion. Lemma~\ref{lem:bag-expansion} gives an expansion of \(\ell_1\) cost at most \(\xi_b\), and the certified local coefficient map increases this by at most \(\kappa_b\). Thus the outgoing cost is at most \(\Gamma_b\).
+
+For an internal bag \(b\), inactive child messages are, by local marginalizability, already consumed by local marginalization maps and enter as normalized deterministic free or active-boundary messages. They therefore contribute no quasiprobability coefficient to the outgoing expansion. Each active child \(c\in\Act(b)\) has, by the induction hypothesis, an expansion of \(\ell_1\) cost at most \(\Gamma_c\). Tensoring the local bag expansion with the active child expansions gives coefficient \(\ell_1\) norm at most
+\[
+\xi_b\prod_{c\in\Act(b)}\Gamma_c .
+\]
+The local contraction map has certified coefficient norm at most \(\kappa_b\) on normalized free representatives and maps free representatives to normalized free representatives on the outgoing certified boundary. Hence the outgoing expansion has \(\ell_1\) norm at most
+\[
+\kappa_b\xi_b\prod_{c\in\Act(b)}\Gamma_c=\Gamma_b .
+\]
+
+Sampling \(\omega\) with probability \(|q_b(\omega)|/\sum_\omega |q_b(\omega)|\) and returning the signed representative gives an unbiased estimator. Normalization bounds the squared magnitude of any entry or normalized linear functional by one, so the second moment is bounded by \((\sum_\omega |q_b(\omega)|)^2\le \Gamma_b^2\).
+\end{proof}
+
+\begin{theorem}[SLMS scalar simulation theorem]
+\label{thm:main}
+Let \(C\) be a compositional circuit or tensor network whose scalar output probability \(p_C(x)\) is represented by a locally marginalizable resource-decomposition network over a rooted tree decomposition \(\T\). Let \(\weff\) be the certified effective stabilizer-compressed width and \(\Lammsg(C,\T)\) the message burden. Then SLMS estimates \(p_C(x)\) to additive error \(\eps\) with failure probability at most \(\delta\) in time
+\[
+\wt{O}\!\left(
+\poly(|C|)
+\eps^{-2}\log(1/\delta)
+2^{O(\weff)}
+\exp(2\Lammsg(C,\T))
+\right).
+\]
+\end{theorem}
+
+\begin{proposition}[SLMS as a checkable sufficient certificate]
+\label{prop:checkable-certificate}
+Fix a rooted decomposition \(\T\), finite free dictionaries for every local tensor type, local resource assignments, local expansion coefficients, local coefficient-map matrices, and active-child declarations. Suppose all local tensors have bounded arity and the supplied free dictionaries have size at most polynomial in \(|C|\). Then the following are checkable in time polynomial in the certificate size:
+\begin{enumerate}[leftmargin=1.2cm]
+\item whether each local expansion has the claimed \(\ell_1\) cost \(\xi_b\);
+\item whether each local coefficient map has certified norm at most \(\kappa_b\) in the chosen finite basis;
+\item whether every inactive child is accompanied by a local marginalization certificate producing a deterministic free or bounded active-boundary message;
+\item the values \(\Gamma_b\), \(\Lammsg\), \(\Lambda_{\mathrm{glob}}\), and the exponent proxy \(\weff+2\Lammsg\).
+\end{enumerate}
+If these checks pass, Theorem~\ref{thm:main} applies. If a check fails, the conclusion is only that this certificate fails; it is not evidence that the circuit is classically hard.
+\end{proposition}
+
+\begin{proof}
+The local expansions and coefficient-map norm bounds are finite linear-algebra checks in the supplied dictionaries. The inactive-child condition is checked by the supplied marginalization certificates and the syntactic/free-region tests described in Section~\ref{sec:algorithm} and Appendix~\ref{app:certification}. The recurrence for \(\Gamma_b\) is a single bottom-up traversal of \(\T\). The claimed running time is polynomial in the explicitly supplied finite certificate because no optimization over decompositions, dictionaries, or active-child sets is required. The final implication is exactly Theorem~\ref{thm:main}.
+\end{proof}
+
+\begin{remark}[Explicit factor of 2 in the exponent]
+\label{rem:factor-two}
+The sampling cost is governed by the second moment of the scalar estimator. With the convention \(\Lammsg=\max_b\log\Gamma_b\), Lemma~\ref{lem:message-recurrence} gives second moment at most \(\Gamma_r^2\le\exp(2\Lammsg)\), so the sample count scales as \(\exp(2\Lammsg)/\eps^2\). Concrete sample-count estimates use the explicit \(\exp(2\Lammsg)\) form, as in Section~\ref{sec:algorithm}.
+\end{remark}
+
+\paragraph{Non-asymptotic accounting form.}
+The \(\widetilde O\)-statement isolates the asymptotic dependence on \(\weff\) and \(\Lammsg\). For implementation accounting it is useful to write
+\[
+T_{\mathrm{total}}
+\le C_{\mathrm{cert}}+
+N\,C_{\mathrm{sample}},
+\qquad
+N=
+O\!\left(\eps^{-2}\exp(2\Lammsg)\log(1/\delta)\right),
+\]
+where \(C_{\mathrm{cert}}\) is the time to verify the supplied finite dictionaries, local expansions, \(\kappa_b\) bounds, active-child declarations, and effective-width certificates. The per-sample cost satisfies
+\[
+C_{\mathrm{sample}}
+\le \poly(|C|)\,2^{c\weff}\,D_{\mathrm{dict}}^{c'}\,d_{\max}^{c''},
+\]
+for constants depending on the fixed local tensor model, maximum local dictionary size \(D_{\mathrm{dict}}\), and maximum local index dimension \(d_{\max}\). The experiment section reports the exponent proxy \(\weff+2\Lammsg\) because this is the certificate-visible part before backend-dependent constants and dictionary sizes are optimized.
+
+\paragraph{Scalar versus table estimation.}
+The theorem is stated for estimating the root scalar \(p_C(x)\). One can also estimate intermediate active-boundary message tables entrywise, but then the table dimension \(D_b\le 2^{O(\weff)}\), per-entry accuracy, and union bounds must be included explicitly. The proof below uses the scalar mode: a sample fixes a complete active quasiprobability assignment generated by the certified recurrence, contracts the remaining free/stabilizer network symbolically with active boundary dimension bounded by \(2^{O(\weff)}\), and returns a single unbiased scalar estimator.
+
+\begin{proof}
+By Lemma~\ref{lem:message-recurrence}, the root message, after applying the final effect for the event \(x\), has a scalar quasiprobability expansion with \(\ell_1\) cost at most \(\Gamma_r\), where \(r\) is the root bag. Sampling from the absolute values of the active local and active-child coefficients in the recurrence and returning the corresponding signed free contraction gives an unbiased estimator of \(p_C(x)\). Inactive child subtrees contribute deterministic normalized free or active-boundary messages by local marginalizability, so their resource coefficients do not enter the sampled root assignment.
+
+For each sampled assignment, Theorem~\ref{thm:free-compression} contracts the remaining free/stabilizer regions symbolically and handles any dense active boundary with dimension bounded by \(2^{O(\weff)}\). Thus a single sample costs \(\poly(|C|)2^{O(\weff)}\). The scalar estimator has second moment at most
+\[
+\Gamma_r^2\le \left(\max_b\Gamma_b\right)^2
+=\exp(2\Lammsg(C,\T)).
+\]
+Median-of-means estimation therefore uses
+\[
+O\!\left(\eps^{-2}\exp(2\Lammsg(C,\T))\log(1/\delta)\right)
+\]
+samples, up to polynomial factors and the active-boundary contraction cost. Combining these factors gives
+\[
+\wt{O}\!\left(
+\poly(|C|)\eps^{-2}\log(1/\delta)
+2^{O(\weff)}
+\exp(2\Lammsg(C,\T))
+\right).
+\]
+\end{proof}
+
+\begin{corollary}[Polynomial-time easy regime]
+\label{cor:poly}
+For a circuit family \(\{C_n\}\), suppose there exist locally marginalizable decompositions \(\T_n\) such that
+\[
+\weff(\T_n)+2\Lammsg(C_n,\T_n)=O(\log n),
+\]
+with bounded local dimension and polynomially describable local certificates. Then output probabilities of \(\{C_n\}\) are additively estimable in randomized polynomial time.
+\end{corollary}
+
+\begin{proof}
+Substitute the logarithmic bound into Theorem~\ref{thm:main}. The exponential factors become polynomial in \(n\).
+\end{proof}
+
+\begin{example}[Constant-boundary separation from global-magic accounting]
+\label{prop:improvement}
+There is a family of locally marginalizable tree tensor networks \(\{C_n\}\) with \(n\) resource tensors and non-scalar one-bit boundary messages such that
+\[
+\Lambda_{\mathrm{glob}}(C_n,\T_n)=\Theta(n)
+\qquad\text{but}\qquad
+\Lammsg(C_n,\T_n)=O(1).
+\]
+For this pedagogical family, naive global quasiprobability accounting gives exponential overhead in \(n\), while the certified SLMS recurrence gives polynomial overhead. The example is not presented as a state-of-the-art simulation separation.
+\end{example}
+
+\begin{proof}
+Let each leaf contain one copy of the one-qubit non-stabilizer state
+\[
+\ket{T}=(\ket0+e^{i\pi/4}\ket1)/\sqrt2 .
+\]
+The leaf applies the following stabilizer instrument: measure the \(X\) Pauli observable on \(\ket{T}\), write the classical outcome \(y\in\{0,1\}\) into a computational-basis boundary register, and discard the measured qubit. The outgoing leaf message is the one-bit classical stabilizer mixture
+\[
+\rho_T
+=p\,\ket0\!\bra0+(1-p)\ket1\!\bra1,
+\qquad
+p=\frac{1+1/\sqrt2}{2}.
+\]
+This message is not a scalar; it is a constant-size boundary distribution that will be combined by the rest of the tree.
+
+Each internal node takes two incoming one-bit classical boundary registers, prepares a fresh \(\ket0\) target, applies two CNOT gates into the target, and discards the two inputs. Thus the internal node computes the XOR of the two child bits and emits a one-bit classical stabilizer message. At the root, measure whether the final parity bit is \(0\). The resulting output probability is the even-parity probability of \(n\) independent biased bits, for example
+\[
+p_{\mathrm{even}}=\frac{1+(2p-1)^n}{2}
+\]
+for a balanced tree with \(n\) leaves.
+
+Let \(\xi_T>1\) be any certified free-tensor quasiprobability cost for the local \(\ket{T}\) resource representation. Then \(\xi_b=\xi_T\) for leaf bags and \(\xi_b=1\) for internal bags, so
+\[
+\Lambda_{\mathrm{glob}}=\sum_b\log\xi_b=n\log\xi_T=\Theta(n).
+\]
+However each \(\ket{T}\) resource is locally consumed by the Pauli measurement instrument before its message crosses the first separator. The outgoing one-bit boundary message \(\rho_T\) is a free classical stabilizer mixture of \(\ell_1\) cost one, and the local maps have \(\kappa_b=1\). Hence all children can be declared inactive after the leaf marginalization, and every internal XOR node is free. The recurrence gives \(\Gamma_b=\xi_T\) at leaves and \(\Gamma_b=1\) at internal bags, so \(\Lammsg=\log\xi_T=O(1)\). The effective active boundary is one classical bit, so \(\weff=O(1)\). SLMS computes or estimates the leaf boundary distributions locally and combines them through free XOR messages in polynomial time, while a sampler that expands all \(n\) \(\ket{T}\) resources globally pays \(\xi_T^{\Theta(n)}\) overhead.
+\end{proof}
+
+\begin{example}[Path-active separation from global-magic accounting]
+\label{prop:path-active-improvement}
+There is a family of locally marginalizable tree tensor networks \(\{D_n\}\), with \(n\) leaf-local resource tensors and \(O(\log n)\) additional path resources, for which
+\[
+\Lambda_{\mathrm{glob}}(D_n,\T_n)=\Theta(n)
+\qquad\text{but}\qquad
+\Lammsg(D_n,\T_n)=O(\log n).
+\]
+In this family a nontrivial resource label remains active along one root-to-leaf path, while all off-path leaf resources are locally marginalized before joining that path.
+\end{example}
+
+\begin{proof}
+Let \(n=2^h\) and use a balanced binary tree of height \(h\). Put one \(\ket T\)-type resource of certified cost \(\xi_T>1\) at every leaf. The off-path leaves use the same local Pauli-measurement gadget as in Example~\ref{prop:improvement}, so each exports a one-bit classical stabilizer boundary message and no unresolved quasiprobability label.
+
+Choose the leftmost root-to-leaf path \(\pi\). Along \(\pi\), add one constant-size resource gadget of certified cost \(\xi_P>1\) at each internal bag. The gadget acts on the current one-bit boundary and is not marginalized until the root; equivalently, in the active-child certificate, the child continuing along \(\pi\) is active at each path bag. The sibling subtree at each path bag is inactive because its resources have already been locally measured into free one-bit messages. All off-path internal composition maps are Clifford XOR maps, as in Example~\ref{prop:improvement}.
+
+The global quasiprobability burden includes the \(n\) leaf costs and \(h\) path costs:
+\[
+\Lambda_{\mathrm{glob}}
+=n\log\xi_T+h\log\xi_P
+=\Theta(n).
+\]
+For the message recurrence, off-path subtrees contribute no active child burden after local marginalization. At a path bag, the only active child is the next child on \(\pi\), and the local multiplicative cost is at most \(\xi_P\), except at the terminal leaf where it is at most \(\xi_T\). Therefore
+\[
+\max_b \log\Gamma_b
+\le \log\xi_T+h\log\xi_P
+=O(\log n).
+\]
+The active boundary is still constant size: one classical or stabilizer-frame bit plus the constant-size path gadget state. Hence \(\weff=O(1)\) for the certified representation. The family separates SLMS from naive global quasiprobability sampling, while also showing a regime in which resource randomness is not merely consumed at independent leaves. It is not, by itself, a separation from dense tensor-network contraction unless the dense width of the chosen circuit family is made large while the stabilizer-compressed width remains constant.
+\end{proof}
+
+\begin{proposition}[Parameter separation from dense treewidth bounds]
+\label{thm:dense-width-separation}
+There is a family of locally marginalizable resource-decomposition networks \(\{G_L\}\), built from an \(L\times L\) stabilizer graph-state core with locally measured non-Clifford leaf gadgets, such that the ordinary dense contraction graph has treewidth
+\[
+\wTNopt(G_L)=\Theta(L),
+\]
+while the certified SLMS parameters satisfy
+\[
+\weff(G_L)=O(1),\qquad
+\Lammsg(G_L)=O(1).
+\]
+The global quasiprobability burden of the attached resource gadgets is \(\Theta(L^2)\). Thus the certified SLMS bound is polynomial for this family, whereas the dense Markov--Shi-style treewidth expression for the uncompressed tensor network has exponential dependence \(2^{\Theta(L)}\).
+\end{proposition}
+
+This is only a parameter separation between dense treewidth bounds and stabilizer-compressed separator-local certificates. It is not a lower bound against algorithms that already exploit stabilizer tableau structure, ZX rewriting, focused width, or stabilizer tensor-network representations.
+
+\begin{proof}
+Let \(Q_L\) be the \(L\times L\) square grid. The free core prepares the graph state \(\ket{Q_L}\) using \(\ket+\) preparations and controlled-\(Z\) gates on grid edges, and then applies a fixed product of Pauli or computational-basis effects whose probability is the target scalar. This entire core is a stabilizer tensor network.
+
+At each grid vertex attach a constant-size leaf gadget containing one \(\ket T\)-type resource of certified quasiprobability cost \(\xi_T>1\). The gadget is consumed locally by a Pauli measurement or stabilizer instrument and exports only a classical stabilizer mixture or a Pauli-frame bit into the adjacent grid-site tensor. As in Example~\ref{prop:improvement}, this exported message is non-scalar but free after local marginalization. All local coefficient maps have \(\kappa_b=1\).
+
+The dense contraction graph contains the \(L\times L\) grid as a minor after deleting the attached leaf gadgets and suppressing constant-size internal gadget vertices. The treewidth of the square grid is \(\Theta(L)\), and adding constant-size leaf gadgets changes treewidth by at most a constant factor. Hence the optimal dense treewidth-type parameter of the uncompressed contraction graph is \(\wTNopt(G_L)=\Theta(L)\).
+
+For SLMS, first certify the connected graph-state core as one free stabilizer region. Standard tableau simulation represents its boundary and Pauli-frame data using polynomial-size symbolic stabilizer data. Since every attached resource gadget is locally marginalized before its quasiprobability label enters the grid core, no non-stabilizer choice crosses a grid separator. The only dense active data are constant-size local classical bits or the final scalar effect, so \(\weff=O(1)\).
+
+There are \(L^2\) resource gadgets, so
+\[
+\Lambda_{\mathrm{glob}}=L^2\log\xi_T=\Theta(L^2).
+\]
+However each gadget is assigned to its own local bag and is inactive before communicating with the stabilizer core. Thus \(\Gamma_b\le \xi_T\) for gadget bags and \(\Gamma_b=1\) for the free core bags, giving \(\Lammsg=O(1)\). The active-child recurrence is the extra ingredient beyond the stabilizer easiness of graph states: it certifies that the locally attached non-Clifford gadgets do not load the grid separators. Theorem~\ref{thm:main} then gives a polynomial certified upper bound. The dense-width comparison is a comparison with the width expression obtained by contracting the original dense tensor network; it is not a lower bound against algorithms that exploit stabilizer tableau structure, ZX simplification, focused width, or stabilizer tensor-network methods.
+\end{proof}
+
+\paragraph{Referee caveat.}
+An expert may object that the graph-state core is already stabilizer-simulable. This is exactly the point of the construction: dense treewidth is not the right parameter once a large free stabilizer region is represented symbolically. The theorem separates width parameters and simulation upper bounds for certified representations; it does not establish a complexity-theoretic lower bound against stabilizer-aware classical algorithms.
+
+\begin{corollary}[Polynomial certified simulation despite superlogarithmic dense width]
+\label{cor:dense-width-bound-separation}
+Let \(\{C_n\}\) be a locally marginalizable family with polynomially describable certificates such that
+\[
+\wTNopt(C_n)=\omega(\log n),
+\qquad
+\weff(C_n)+2\Lammsg(C_n,\T_n)=O(\log n).
+\]
+Then Theorem~\ref{thm:main} gives a randomized polynomial-time additive simulation bound for the certified representation, while the dense treewidth expression \(2^{\Theta(\wTNopt(C_n))}\) is superpolynomial. This compares parameterized upper bounds only and does not rule out other classical algorithms.
+\end{corollary}
+
+\begin{proof}
+The SLMS statement follows from Corollary~\ref{cor:poly}. Since \(\wTNopt(C_n)=\omega(\log n)\), the dense-width exponential expression \(2^{\Theta(\wTNopt(C_n))}\) grows faster than any polynomial in \(n\). The claim is only about the dense treewidth cost expression.
+\end{proof}
+
+\begin{proposition}[Non-improvement over dense treewidth in the uncompressed regime]
+\label{prop:non-improvement}
+If \(\weff=\wTN\) for a decomposition and \(\Lammsg(C,\T)>0\), then the SLMS bound is not asymptotically better than the ordinary dense tensor-network contraction bound \( \wt{O}(\poly(|C|)2^{O(\wTN)}) \) on the basis of width alone.
+\end{proposition}
+
+\begin{proof}
+With \(\weff=\wTN\), Theorem~\ref{thm:main} gives the dense-width factor \(2^{O(\wTN)}\) multiplied by the additional nonnegative factor \(\exp(2\Lammsg)\). Dense tensor-network contraction does not pay this magic factor because it contracts the original tensors directly. Thus any advantage of SLMS in this case must come from constants, implementation details, reuse of local marginalizations, or comparison to global-magic sampling, not from an asymptotic improvement over the Markov--Shi-style width bound.
+\end{proof}
+
+\begin{conjecture}[General separator-local factorization]
+\label{conj:general-separator}
+For broader compositional tensor networks beyond the locally marginalizable class, there may exist message estimators whose variance is controlled by resource tensors that remain genuinely active across each separator, rather than by the global product of all resource costs. An explicit version of this conjecture requires a concrete estimator, a computable separator burden, and a proof of unbiasedness and second-moment control.
+\end{conjecture}

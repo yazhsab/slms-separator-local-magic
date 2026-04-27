@@ -1,0 +1,41 @@
+# OS/editor noise
+.DS_Store
+._*
+*.swp
+*.swo
+
+# Python cache/test cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+experiments/slms_certificate/.mplconfig/
+
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+# Local virtual environments and runtime scratch
+.venv/
+venv/
+env/
+.env
+
+# Local / stale packaged archives
+submission_package/*.zip
+submission_package/*.tar.gz
+archive/stale_run_py314/
+
+# macOS and temporary artifacts under experiment folders
+experiments/.DS_Store
+experiments/slms_certificate/.DS_Store

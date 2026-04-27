@@ -1,0 +1,57 @@
+{
+  "timestamp_utc": "2026-04-26T17:27:44.437012+00:00",
+  "mode_used": "fallback_with_lambeq_reader_evidence",
+  "lambeq_status": {
+    "used_lambeq": true,
+    "lambeq_available": true,
+    "parser_available": true,
+    "parser_name": "cups_reader",
+    "real_instances": 120,
+    "extraction_mode": "linear_reader_not_parser",
+    "failure_reason": "",
+    "parser_failure_reason": "real_lambeq_parser_failed: WebParseError: Web parser could not parse 'Alice likes Bob.'",
+    "parser_failure_parser_name": "WebParser",
+    "reader_note": "lambeq LinearReader output; not CCG/Bobcat/DepCCG parsed diagrams"
+  },
+  "instances": 120,
+  "certificate_pass_count": 105,
+  "certificate_fail_count": 15,
+  "lambda_msg": {
+    "min": 0.26236426446749106,
+    "median": 0.9244220183777844,
+    "max": 8.395656462959716
+  },
+  "lambda_glob": {
+    "min": 0.5247285289349821,
+    "median": 4.197828231479859,
+    "max": 17.618885118307297
+  },
+  "w_eff_proxy": {
+    "min": 1.0,
+    "median": 1.0,
+    "max": 5.0
+  },
+  "slms_proxy": {
+    "min": 1.5247285289349821,
+    "median": 3.574185586804947,
+    "max": 18.26658439698445
+  },
+  "dense_tn_proxy": {
+    "min": 1.0,
+    "median": 1.0,
+    "max": 10.0
+  },
+  "global_pwb_proxy": {
+    "min": 1.0494570578699642,
+    "median": 8.395656462959717,
+    "max": 35.237770236614594
+  },
+  "plots": [
+    "/Users/prabakarankannan/research/papers/paper/figures/exp_lambda_msg_histogram.pdf",
+    "/Users/prabakarankannan/research/papers/paper/figures/exp_w_eff_histogram.pdf",
+    "/Users/prabakarankannan/research/papers/paper/figures/exp_lambda_msg_vs_lambda_glob.pdf",
+    "/Users/prabakarankannan/research/papers/paper/figures/exp_exponent_proxy_comparison.pdf",
+    "/Users/prabakarankannan/research/papers/paper/figures/exp_certificate_pass_rate.pdf",
+    "/Users/prabakarankannan/research/papers/paper/figures/exp_focused_width_proxy_comparison.pdf"
+  ]
+}

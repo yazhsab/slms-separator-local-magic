@@ -1,0 +1,18 @@
+\section{Additional Examples}
+\label{app:examples}
+
+\subsection{Tree with locally consumed non-scalar resources}
+
+Consider a balanced binary tree of depth \(h\) with one resource tensor of cost \(\xi>1\) attached to each leaf module. In Example~\ref{prop:improvement}, each leaf locally consumes a \(\ket{T}\) state by a Pauli measurement and exports a one-bit classical stabilizer boundary message. Parent nodes combine these messages by Clifford XOR maps. The global magic proxy is
+\[
+\sum_A\log\xi(A)=2^h\log\xi,
+\]
+while the message burden is \(O(\log\xi)\) because every resource is locally marginalized before reaching its parent. This separates SLMS from naive global sampling. It does not by itself separate SLMS from dense treewidth contraction, since the underlying tree has small dense width.
+
+\subsection{Chain with resources on every edge}
+
+For a chain of \(n\) tensors with resource cost \(\xi\) on each edge interaction, every separator cuts the chain into a prefix and suffix. If the active-child recurrence keeps the child active at every step, then \(\Lammsg\) grows linearly in the chain length, matching the global product up to constants. This example shows that separator-local magic is not automatically smaller than global magic.
+
+\subsection{Clustered discourse resource}
+
+Suppose a document graph consists of \(k\) sentence subtrees connected by a discourse hub tensor. If all non-Clifford tensors are inside sentence subtrees and each sentence subtree is locally marginalized, \(\Lammsg\) may remain small even for large \(k\). If the hub tensor itself is non-Clifford and has high arity, then it loads a high-level separator and may dominate both \(\weff\) and \(\Lammsg\). This distinction is invisible to a global count of non-Clifford gates.

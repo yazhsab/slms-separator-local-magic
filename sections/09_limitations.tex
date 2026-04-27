@@ -1,0 +1,64 @@
+\section{Limitations}
+\label{sec:limitations}
+
+\subsection{Restricted theorem}
+
+The main theorem applies only to locally marginalizable resource-decomposition networks. This is a real restriction. A general compositional circuit may have resource tensors whose effects remain coherent across several child branches; then the active-child recurrence may collapse to the global product, or the network may fail the local marginalization condition altogether.
+
+\subsection{Why this does not automatically beat treewidth contraction}
+
+If ordinary dense contraction width is already logarithmic, Markov--Shi-style tensor-network contraction already gives polynomial-time simulation. If \(\weff=\wTN\) and \(\Lammsg>0\), Theorem~\ref{thm:main} is not an asymptotic improvement over ordinary dense tensor-network contraction. SLMS is useful only when at least one of the following holds:
+\begin{itemize}[leftmargin=1.2cm]
+\item stabilizer compression gives \(\weff\ll\wTN\);
+\item global magic is high but the message burden is low;
+\item resource tensors are modular and locally marginalizable;
+\item the benchmark goal is to diagnose where non-stabilizer resource sits relative to separators, not to outperform every contraction method.
+\end{itemize}
+
+The stabilizer-grid separation in Proposition~\ref{thm:dense-width-separation} is a separation from dense treewidth parameters. It is not a lower bound against every classical algorithm, since a stabilizer-aware simulator can also exploit the graph-state core. This distinction is important: the paper compares simulation parameters and certified algorithms, not computational complexity lower bounds.
+
+\subsection{Why this does not automatically beat focused-width, ZX, or STN methods}
+
+SLMS is not claimed to supersede recent focused tree-width, focused rank-width, low-rank-width ZX, ZX partitioning, or stabilizer tensor-network simulators \citep{CodsiLaakkonen2026,KuyanovKissinger2026,Sutcliffe2024KPartition,SutcliffeKissinger2024Cutting,SutcliffeKissinger2025Parametric,MasotLlimaGarciaSaez2024,NakhlEtAl2025}. Those methods can exploit graph rewrites, rank-width, stabilizer decompositions, tensor-network partitioning, or stabilizer-state tensor bases in ways that are not captured by \(\weff\) and \(\Lammsg\).
+
+Consequently, a small SLMS certificate is evidence of an easy regime, but a large SLMS burden is not evidence that competing simulators fail. Conversely, the dense-grid example separates SLMS from dense treewidth bounds only; focused-width or stabilizer-aware methods may also simulate it efficiently. A strict separation from these modern competitors would require proving a family with low \(\weff+2\Lammsg\) and provably large focused width, rank width after ZX simplification, partitioning cost, and stabilizer tensor-network cost. No such separation is proved here.
+
+\subsection{Computing the certificates}
+
+The theorem assumes a rooted decomposition, an effective-boundary certificate, local quasiprobability costs, and active-child sets. Computing optimal versions of these objects may be hard. In particular, stabilizer extent, robustness, and related quantities may require nontrivial optimization outside special cases. Benchmarks may need certified upper bounds or proxies rather than exact costs.
+
+\subsection{Artifact and evidence limitations}
+
+The executed artifact run in this repository is not parser-level QNLP evidence. A clean Python 3.11 lambeq installation was created and lambeq imported, but no CCG-grammatical parser path in lambeq 0.5.0 produced parsed diagrams in this environment. \texttt{BobcatParser} failed while retrieving its model from a hardcoded model URL; \texttt{DepCCGParser} could not run because the external \texttt{depccg} package did not build/install in the audited environment; and \texttt{WebParser} failed against the lambeq web service. The exact command outputs are recorded in the artifact logs and blocker reports. The fallback path through lambeq's \texttt{cups\_reader} produces 120 LinearReader graph-only diagrams; these are real lambeq output but not CCG-parsed and carry no non-Clifford resource annotations. The QDisCoCirc probe also found no importable \texttt{qdiscocirc} or \texttt{qdisco\_circ} package in the verified environment.
+
+The 120 fallback structured instances are useful for testing the certificate recurrence, negative controls, output formats, plots, dense microbenchmarks, scalar-estimator microbenchmarks, focused-width and ZX and STN-style comparator computations, and the wall-clock timings reported in Section~\ref{sec:bench-comparators}. They do not prove coverage of real parser-generated lambeq or QDisCoCirc workloads.
+
+The Codsi--Laakkonen focused tree-width and focused rank-width are computed exactly only for instances with \(\le 22\) vertices (focused tree-width) or \(|S|\le 4\) special vertices (focused rank-width); larger instances receive an honest upper bound via greedy elimination or recursive bipartition. The reported Codsi--Laakkonen runtime exponent uses our \(\mathrm{frw}\) upper bound; a smaller true \(\mathrm{frw}\) would shift the comparator. The ZX-inspired diagnostic uses \(\mathtt{pyzx.simplify.full\_reduce}\) and the artifact now adds a simple pyzx \(k\)-partition heuristic, but neither implements Sutcliffe--Kissinger cutting or parametric rewriting. The stabilizer-tensor-network row is a tableau plus Bravyi--Gosset stabilizer-rank \emph{upper bound}; the actual algorithms of Masot-Llima--Garc\'ia-S\'aez \citep{MasotLlimaGarciaSaez2024} and Nakhl et al.\ \citep{NakhlEtAl2025} are not implemented in this artifact. The artifact's small dense-contraction and scalar-estimator microbenchmarks are real wall-clock timings on graph-derived data, but the end-to-end real-QNLP SLMS wall-clock gate reports blocked because no parser-generated resource instances are available.
+
+\subsection{When SLMS is not useful}
+
+SLMS may provide little or no benefit when:
+\begin{itemize}[leftmargin=1.2cm]
+\item \(\weff\) is close to the ordinary dense width \(\wTN\);
+\item \(\Lammsg\) is close to the global burden \(\Lambda_{\mathrm{glob}}\);
+\item local marginalization fails and most children must be declared active;
+\item continuous trainable rotations occur densely across high-level separators;
+\item a focused tree-width, focused rank-width, low-rank-width ZX, ZX-cutting, or stabilizer tensor-network method gives a tighter certificate;
+\item ZX simplification removes the non-Clifford structure that SLMS would otherwise charge for;
+\item certificate search is as hard as the contraction problem being certified;
+\item the task requires multiplicative accuracy or rare-event sampling rather than additive scalar probability estimation.
+\end{itemize}
+
+The failure of the SLMS certificate is not evidence of quantum hardness. It only means that this sufficient condition did not certify an easy regime.
+
+\subsection{Diagnostics versus operational overhead}
+
+Stabilizer R\'enyi entropy is not used as an operational runtime parameter. It can be an informative diagnostic, but substituting it for quasiprobability norm or robustness requires a proved inequality for the relevant tensor class.
+
+\subsection{No hardness dichotomy}
+
+Large \(\weff+2\Lammsg\) suggests that this specific simulator may be expensive; it does not prove classical hardness. Conversely, QDisCoCirc conditional hardness results do not automatically imply lower bounds on \(\weff\), \(\Lammsg\), or local marginalizability.
+
+\subsection{Idealized model}
+
+The model abstracts away compilation and hardware noise. This is intentional. The paper studies exact or controlled-error classical simulation of idealized structured circuits, not experimental performance or application utility.

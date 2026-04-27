@@ -1,0 +1,81 @@
+\section{Stabilizer and Quasiprobability Decompositions}
+\label{app:stabilizer}
+
+This appendix relates common magic measures to the primary local cost \(\xi(A)\). In the theorem, \(\xi(A)\) means a certified free-tensor quasiprobability \(\ell_1\) cost. Other measures are used only insofar as they provide decompositions or upper bounds.
+
+\subsection{Stabilizer rank and extent}
+
+For a pure \(n\)-qubit state \(\ket{\psi}\), the stabilizer rank \(\chi(\psi)\) is the minimum number of stabilizer states needed in an exact linear decomposition
+\[
+\ket{\psi}=\sum_{j=1}^{\chi} c_j\ket{\phi_j}.
+\]
+Approximate stabilizer rank permits approximation in norm or fidelity and is used in simulation algorithms where small state error induces controlled output error. Stabilizer extent is the squared minimum \(\ell_1\)-norm of stabilizer decompositions in common conventions:
+\[
+\xi_{\mathrm{ext}}(\psi)
+=\min_{\psi=\sum_j c_j\phi_j}\left(\sum_j |c_j|\right)^2.
+\]
+Because conventions differ by squares, the main text uses a generic \(\xi(A)\) and places squares explicitly in variance statements.
+
+\subsection{Robustness of magic}
+
+Robustness of magic expresses a state or operation as a signed combination of free stabilizer objects and minimizes the \(\ell_1\) weight. It has an operational role in quasiprobability simulation and magic-state resource theory. For mixed states,
+\[
+\rho=\sum_j q_j\sigma_j,\qquad \sigma_j\in\Sstab,
+\]
+with real coefficients \(q_j\), the relevant cost is typically \(\sum_j |q_j|\), minimized over stabilizer decompositions. Channel robustness and related quantities can be defined analogously through free channels or Choi states, with care about normalization.
+
+\subsection{Dyadic negativity and quasiprobability norm}
+
+Quasiprobability simulation chooses a representation in which free operations are efficiently sampleable and resource operations have signed representations. The cost is an \(\ell_1\) norm of the signed representation. Dyadic negativity is one such measure adapted to stabilizer operations over qubits. The SLMS theorem is compatible with any such measure satisfying:
+\begin{enumerate}[leftmargin=1.2cm]
+\item exact reconstruction of the resource tensor as a signed combination of free tensors;
+\item efficient sampling from absolute weights;
+\item a second-moment bound controlled by the square of the \(\ell_1\) norm;
+\item closure of sampled free tensors under the message-passing contraction.
+\end{enumerate}
+
+\subsection{Worked examples for \texorpdfstring{\(\kappa_b\)}{kappa}}
+\label{app:kappa-example}
+
+The factor \(\kappa_b\) is a certified local expansion factor for the coefficient map induced by contracting a bag. Fix a finite free dictionary \(\{F_i\}_{i=1}^m\) for the incoming representatives and \(\{G_j\}_{j=1}^{m'}\) for the outgoing representatives. If the local contraction sends
+\[
+F_i\longmapsto \sum_j (L_b)_{j i}G_j,
+\]
+then a coefficient vector \(q\) is mapped to \(L_b q\). A sufficient bound on the outgoing \(\ell_1\) cost is
+\[
+\norm{L_b q}_1\le \norm{L_b}_{1\to 1}\norm{q}_1,
+\qquad
+\kappa_b=\norm{L_b}_{1\to1}
+=\max_i\sum_j |(L_b)_{j i}|.
+\]
+The message recurrence is therefore
+\[
+\Gamma_b=\kappa_b\xi_b\prod_{c\in\Act(b)}\Gamma_c .
+\]
+
+For a stochastic classical marginalization map, let \(G_0,G_1\) be the two outgoing classical basis messages and suppose the local map is
+\[
+L_{\mathrm{stoch}}
+=
+\begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}
+\quad\text{or more generally}\quad
+L_{j i}\ge 0,\quad \sum_j L_{j i}\le 1 .
+\]
+Then \(\norm{L_{\mathrm{stoch}}}_{1\to1}\le 1\), so \(\kappa_b=1\). This is the case for normalized classical postprocessing, erasure, and marginalization maps used in the leaf-local examples.
+
+As a nontrivial expansion example, consider changing from a one-dimensional signed representative \(F_+\) to a two-element outgoing dictionary by
+\[
+F_+\longmapsto G_0-G_1 .
+\]
+The coefficient matrix is a single column \(L=(1,-1)^T\), hence
+\[
+\kappa_b=\norm{L}_{1\to1}=|1|+|-1|=2 .
+\]
+A bag using this map doubles the certified coefficient norm, and the factor is explicitly charged in \(\Gamma_b\). Thus \(\kappa_b\) is not a hidden assumption: it is a local certificate that must be computed, upper-bounded, or conservatively absorbed by marking a larger region active.
+
+\subsection{Operational measure used in the theorem}
+
+The primary operational measure is the generic free-tensor quasiprobability \(\ell_1\) norm. Stabilizer extent, robustness, and dyadic negativity are treated as instantiations or upper bounds, not as separate theorem-level primitives. Comparing the resulting \(\Lammsg\) certificates under several decomposition families is a separate empirical and algorithmic task.

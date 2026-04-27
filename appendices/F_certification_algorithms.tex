@@ -1,0 +1,163 @@
+\section{Certification Algorithms for Stabilizer Backends}
+\label{app:certification}
+
+This appendix makes the certificate requirements in Section~\ref{sec:certification} more concrete. The algorithms below are sufficient tests, not complete characterizations. If a test fails, the conservative action is to enlarge the active boundary, mark the child active, or record an additional local norm factor \(\kappa_b\). The failure of a certificate is therefore not evidence of hardness.
+
+\subsection{CERTIFY-FREE-REGIONS}
+
+\begin{center}
+\fbox{\begin{minipage}{0.93\linewidth}
+\textbf{Algorithm CERTIFY-FREE-REGIONS}
+\begin{enumerate}[leftmargin=1.0cm]
+\item Input a tensor network with tags \(\mathrm{free}\), \(\mathrm{resource}\), or \(\mathrm{unknown}\).
+\item Build the induced graph on tensors tagged \(\mathrm{free}\).
+\item Compute its connected components.
+\item For each component, record boundary legs incident to resource, unknown, output, or active-child tensors.
+\item Return the free components and their boundary metadata.
+\end{enumerate}
+\end{minipage}}
+\end{center}
+
+\subsection{COMPUTE-WEFF-UPPER}
+
+For a free subnetwork \(H\) with boundary legs \(B\), a stabilizer backend can represent the induced boundary relation by a tableau or, for classical wires, by an affine relation over \(\mathbb F_2\). A conservative compression procedure is:
+\begin{enumerate}[leftmargin=1.2cm]
+\item contract the free Clifford, Pauli-measurement, preparation, discard, and classical-copy tensors using a tableau simulator;
+\item record the stabilizer constraints on boundary Paulis and the classical affine constraints on computational-basis wires;
+\item mark as dense-active every boundary leg incident to an unresolved resource tensor, to a failed tableau update, or to a non-stabilizer effect;
+\item count only the remaining dense-active subsystem in \(D_e^{\mathrm{act}}\).
+\end{enumerate}
+This gives the certified upper bound
+\[
+\weff\le \max_e \log_2 D_e^{\mathrm{act}}.
+\]
+If the tableau representation contains measurements with branch-dependent non-Clifford corrections, those branch labels are dense-active unless they are immediately marginalized by an \(\ell_1\)-nonexpansive map.
+
+\begin{center}
+\fbox{\begin{minipage}{0.93\linewidth}
+\textbf{Algorithm COMPUTE-WEFF-UPPER}
+\begin{enumerate}[leftmargin=1.0cm]
+\item Input free-region certificates and a rooted tree decomposition.
+\item For each separator \(e\), list dense tensor-network boundary legs \(S_e^{\mathrm{TN}}\).
+\item Remove legs represented entirely by tableau, affine stabilizer, or normalized classical stochastic data.
+\item Count the remaining active dense dimension \(D_e^{\mathrm{act}}\).
+\item Return \(\max_e\log_2D_e^{\mathrm{act}}\).
+\end{enumerate}
+\end{minipage}}
+\end{center}
+
+\subsection{Syntactic free-region detection}
+
+Given a labelled tensor network, form the induced subgraph on tensors whose labels are certified free: stabilizer states and effects, Clifford channels, Pauli measurements, computational-basis preparations and discards, classical stochastic maps with nonnegative columns of sum at most one, and previously certified free mixtures. Connected components of this subgraph are candidate free regions. Boundary legs adjacent to resource tensors or active child messages are exported as active legs; all other boundary information is stored in the tableau or affine representation.
+
+This procedure is intentionally syntactic. It does not try to discover hidden Clifford structure inside an arbitrary dense tensor. A stronger implementation can improve the certificate by applying local Clifford simplification, ZX or circuit rewriting, or small-dimensional membership tests before the free-region pass.
+
+\subsection{CERTIFY-ACTIVE-CHILDREN}
+
+Let \(c\) be a child of \(b\). Write \(K_{b,c}\) for the local map obtained by contracting the message boundary of \(c\) with the tensors at \(b\) that consume that boundary, leaving only the outgoing boundary of \(b\) open. A sufficient inactive-child certificate is one of the following.
+
+\paragraph{Finite stabilizer boundary.}
+If the certified child message ranges over a finite list \(\mathcal F_c\) of normalized stabilizer representatives on a constant-size boundary, enumerate \(F\in\mathcal F_c\) and check that \(K_{b,c}(F)\) is either a normalized free representative or a deterministic active-boundary table with \(\ell_1\) cost at most one. For qubit boundaries of size \(O(1)\), this can be implemented by tableau membership plus exact arithmetic for the finite coefficient table.
+
+\paragraph{Classical stochastic boundary.}
+If the child boundary is classical and \(K_{b,c}\) is represented by a real matrix \(K\), it is enough to verify
+\[
+K_{ij}\ge 0,\qquad \sum_i K_{ij}\le 1
+\]
+for every column \(j\). Then \(K\) maps normalized nonnegative child messages to subnormalized nonnegative messages and does not increase the coefficient \(\ell_1\) norm.
+
+\paragraph{Affine stabilizer relation.}
+If \(K_{b,c}\) is a Clifford or classical affine relation, verify by symplectic or affine-rank computation that it maps the child stabilizer relation into the outgoing stabilizer relation. Any leftover boundary bit or Pauli frame bit that is not fixed by this relation is counted as active.
+
+These checks are local. They certify \(c\notin\Act(b)\) only for the chosen decomposition and chosen normalization of the local tensors.
+
+\begin{center}
+\fbox{\begin{minipage}{0.93\linewidth}
+\textbf{Algorithm CERTIFY-ACTIVE-CHILDREN}
+\begin{enumerate}[leftmargin=1.0cm]
+\item Process the rooted decomposition bottom-up.
+\item For each child \(c\) of \(b\), construct the local map \(K_{b,c}\).
+\item If one of the finite stabilizer, classical stochastic, or affine stabilizer checks succeeds, set \(c\notin\Act(b)\).
+\item Otherwise set \(c\in\Act(b)\).
+\item Return all active-child sets.
+\end{enumerate}
+\end{minipage}}
+\end{center}
+
+\subsection{CERTIFY-L1-NONEXPANSIVE}
+
+For active children and local resource expansions, collect the finite coefficient basis used in the proof of Lemma~\ref{lem:message-recurrence}. The local contraction at \(b\) induces a coefficient matrix \(L_b\). A sufficient nonexpansiveness certificate is
+\[
+\norm{L_b}_{1\to1}=\max_j\sum_i |(L_b)_{ij}|\le 1.
+\]
+If this norm is \(L_b^\ast>1\), set \(\kappa_b=L_b^\ast\) and use the recurrence \(\Gamma_b=\kappa_b\xi_b\prod_{c\in\Act(b)}\Gamma_c\). This convention is useful in implementations because it avoids treating small normalization mismatches as certificate failures.
+
+\begin{center}
+\fbox{\begin{minipage}{0.93\linewidth}
+\textbf{Algorithm CERTIFY-L1-NONEXPANSIVE}
+\begin{enumerate}[leftmargin=1.0cm]
+\item Input a local coefficient map \(L_b\) in the chosen free representative basis.
+\item Compute or upper-bound \(\norm{L_b}_{1\to1}=\max_j\sum_i |(L_b)_{ij}|\).
+\item If the bound is finite, output \(\kappa_b=\norm{L_b}_{1\to1}\).
+\item If no finite certified bound is available in the chosen representation, fail the local certificate and mark the affected messages active or merge bags.
+\end{enumerate}
+\end{minipage}}
+\end{center}
+
+\subsection{Greedy active-child certification}
+
+The following bottom-up rule is the backend version of the active-child recurrence.
+\begin{enumerate}[leftmargin=1.2cm]
+\item For each leaf, compute or import the local quasiprobability expansion and its cost \(\xi_b\).
+\item For an internal bag \(b\), try the inactive-child marginalization test for each child \(c\).
+\item If the test succeeds, set \(c\notin\Act(b)\) and pass only the deterministic free or active-boundary message certified by the test.
+\item If the test fails, set \(c\in\Act(b)\) and retain the child message expansion in the recurrence.
+\item Run CERTIFY-L1-NONEXPANSIVE and record \(\kappa_b\).
+\item Set \(\Gamma_b=\kappa_b\xi_b\prod_{c\in\Act(b)}\Gamma_c\).
+\end{enumerate}
+The greedy rule is not guaranteed to minimize \(\Lammsg\). It is a constructive certificate generator. Optimizing over decompositions, resource assignments, local normalizations, and active-child choices remains an open algorithmic problem.
+
+\subsection{Worked certificate for a two-leaf grammar tree}
+\label{app:worked-certificate}
+
+This example records all certificate data for the smallest nontrivial locally marginalizable tree. Let the rooted decomposition have two leaf bags \(b_1,b_2\) and one root bag \(r\). Each leaf contains a lexical resource module consisting of a \(\ket T\)-type resource followed by a Pauli measurement that writes a classical bit to the phrase boundary. The root applies a free XOR map to the two incoming bits and measures whether the output bit is \(0\).
+
+\paragraph{Tree and dense width.}
+Use \(T\) with edges \(b_1-r\) and \(b_2-r\). The dense tensor-network separator across either edge carries one classical bit, so \(\wTN=1\) for this decomposition. The same bit is a computational-basis stabilizer message after local marginalization, so the active dense boundary is empty and \(\weff=0\) if the bit is represented symbolically as a free classical message. If an implementation stores the bit as a dense two-entry table, then \(\weff\le 1\); both are valid certificates with different bookkeeping conventions.
+
+\paragraph{Local costs.}
+Let the certified free-tensor quasiprobability cost of each \(\ket T\)-module be \(\xi_T>1\). Assign the two resources to \(b_1\) and \(b_2\), giving
+\[
+\xi_{b_1}=\xi_{b_2}=\xi_T,\qquad \xi_r=1.
+\]
+The Pauli measurement and the root XOR are free stochastic or Clifford maps. Their coefficient maps are \(\ell_1\)-nonexpansive in the chosen free dictionary, so
+\[
+\kappa_{b_1}=\kappa_{b_2}=\kappa_r=1.
+\]
+
+\paragraph{Active-child sets.}
+At each leaf, the resource label is consumed before the message reaches the root. The outgoing leaf message is a normalized free classical mixture. Therefore both children of the root pass the inactive-child check:
+\[
+\Act(r)=\emptyset.
+\]
+Leaves have no children.
+
+\paragraph{Message recurrence.}
+The recurrence gives
+\[
+\Gamma_{b_1}=\xi_T,\qquad
+\Gamma_{b_2}=\xi_T,\qquad
+\Gamma_r=\kappa_r\xi_r=1.
+\]
+Hence
+\[
+\Lammsg=\max\{\log\xi_T,\log\xi_T,0\}=\log\xi_T.
+\]
+The global burden is instead
+\[
+\Lambda_{\mathrm{glob}}=\log\xi_{b_1}+\log\xi_{b_2}=2\log\xi_T.
+\]
+For this two-leaf example the difference is only a constant factor. For the balanced \(n\)-leaf family in Example~\ref{prop:improvement}, the same local certificate repeats independently at every leaf and yields \(\Lammsg=\log\xi_T\) while \(\Lambda_{\mathrm{glob}}=n\log\xi_T\).
+
+\paragraph{Scalar estimator.}
+The scalar event is the root parity outcome. The SLMS scalar estimator samples the active recurrence. Since the root has no active children and the leaf labels have been locally marginalized, the root scalar can be computed by contracting free classical messages. The variance bound is nevertheless consistent with Theorem~\ref{thm:main}: the sampling factor is at most \(\exp(2\Lammsg)=\xi_T^2\), independent of the number of locally repeated leaves in the balanced extension.

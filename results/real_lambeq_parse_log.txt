@@ -1,0 +1,49 @@
+timestamp_utc: 2026-04-26T17:27:02.154046+00:00
+sentences_requested: 120
+available_parser_classes: ['BobcatParser', 'DepCCGParser', 'WebParser']
+parser_selection_note: initialized_with_verbose_suppress
+Traceback (most recent call last):
+  File "/private/tmp/slms_lambeq_py311/lib/python3.11/site-packages/requests/models.py", line 978, in json
+    return complexjson.loads(self.text, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.14_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/slms_lambeq_py311/lib/python3.11/site-packages/lambeq/text2diagram/web_parser.py", line 154, in sentences2trees
+    data = requests.get(self.service_url, params=params).json()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/slms_lambeq_py311/lib/python3.11/site-packages/requests/models.py", line 982, in json
+    raise RequestsJSONDecodeError(e.msg, e.doc, e.pos)
+requests.exceptions.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/prabakarankannan/research/papers/paper/experiments/slms_certificate/real_lambeq_pipeline.py", line 151, in attempt_real_lambeq
+    diagrams = _parse_sentences(parser, sentences)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/prabakarankannan/research/papers/paper/experiments/slms_certificate/real_lambeq_pipeline.py", line 53, in _parse_sentences
+    return parser.sentences2diagrams(sentences)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/slms_lambeq_py311/lib/python3.11/site-packages/lambeq/text2diagram/ccg_parser.py", line 167, in sentences2diagrams
+    trees = self.sentences2trees(sentences,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/slms_lambeq_py311/lib/python3.11/site-packages/lambeq/text2diagram/web_parser.py", line 159, in sentences2trees
+    raise WebParseError(str(sentence)) from e
+lambeq.text2diagram.web_parser.WebParseError: Web parser could not parse 'Alice likes Bob.'
+
+parser_fallback_to_lambeq_reader: cups_reader
+real_lambeq_parser_failed: WebParseError: Web parser could not parse 'Alice likes Bob.'
+real_instances_extracted: 120
+extraction_mode: linear_reader_not_parser
+resource_note: extracted lambeq graphs contain no non-Clifford resources unless downstream circuitization supplies them

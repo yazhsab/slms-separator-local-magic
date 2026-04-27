@@ -1,0 +1,109 @@
+\section{Specialization to QDisCoCirc and lambeq-Style Circuits}
+\label{sec:qnlp}
+
+\subsection{Grammar-induced contraction graphs}
+
+In lambeq-style QNLP, a sentence is parsed into a grammatical derivation or string diagram. The diagram is rewritten and mapped through an ansatz to a tensor network or quantum circuit \citep{KartsaklisEtAl2021}. Noun, sentence, and relation types become wires or registers; words and grammatical reductions become tensors, effects, or circuit fragments. The contraction graph \(G_C\) is obtained by placing vertices at word tensors, cups/effects, ansatz blocks, and measurement effects, with edges corresponding to contracted grammatical wires and circuit wires.
+
+For pregroup-like sentence diagrams, the induced graphs are often close to trees or low-width series-parallel structures after diagram simplification. This explains why many small QNLP models are accessible to tensor-network contraction. The main theorem refines the statement only for circuits that also satisfy local marginalizability: non-Clifford word or phrase modules must be locally compressed, measured, or marginalized before their unresolved quasiprobability choices propagate through many separators. General trained lambeq ans\"atze with continuous rotations, hardware-efficient entanglers, or non-Clifford phrase-level relation tensors may violate this condition.
+
+\subsection{QDisCoCirc}
+
+QDisCoCirc extends sentence-level composition to text circuits whose vertices represent entities, predicates, discourse updates, and question-answering effects \citep{LaakkonenMeichanetzidisCoecke2024}. Such circuits may introduce more entangling structure than a single sentence parse. Some instances may satisfy the locally marginalizable condition, especially when resourceful lexical modules are consumed inside sentence or phrase subtrees. Other instances may violate it, for example when non-Clifford discourse updates remain coherent across document-level separators.
+
+\begin{proposition}[QNLP specialization for locally marginalizable circuits]
+\label{prop:qdiscocirc-specialization}
+Let \(C_D\) be a QDisCoCirc or lambeq-style circuit obtained from a composition diagram \(D\). Suppose:
+\begin{enumerate}[leftmargin=1.2cm]
+\item the diagram-to-circuit translation produces a bounded-degree contraction graph \(G_{C_D}\);
+\item a rooted tree decomposition \(\T_D\) and stabilizer-compressed boundary certificate of width \(\weff\) are supplied;
+\item non-Clifford word, relation, or discourse-update tensors admit local quasiprobability expansions with certified costs \(\xi_b\);
+\item the active-child and local marginalization conditions of Definition~\ref{def:lm-network} hold.
+\end{enumerate}
+Then output probabilities for \(C_D\) obey the scalar SLMS bound of Theorem~\ref{thm:main} with burden \(\Lammsg(C_D,\T_D)\).
+\end{proposition}
+
+\begin{proof}
+The diagram-to-circuit translation supplies the tensor network and contraction graph. The decomposition, effective-boundary certificate, resource assignment, local expansions, and active-child sets instantiate a locally marginalizable resource-decomposition network. Theorem~\ref{thm:main} then applies.
+\end{proof}
+
+\subsection{A certified grammar-tree family}
+
+\begin{proposition}[Certified grammar-tree family]
+\label{prop:certified-lambeq-family}
+Fix a bounded-arity pregroup or context-free grammar fragment. Fix a constant local dimension \(d_\tau\) for every grammatical type \(\tau\), and allow only a bounded number of noun, sentence, relation, and feature wires across every grammar reduction. Consider lambeq-style sentence circuits in which:
+\begin{enumerate}[leftmargin=1.2cm]
+\item the parse diagram is a rooted tree with word modules at leaves and grammatical reductions at internal nodes;
+\item the allowed free tensors are cups and evaluations, computational-basis effects, copying or parity maps on classical feature bits, Clifford relation tensors, and classical stochastic maps whose coefficient norm is certified;
+\item each resource word or phrase module is constant size, has certified free-tensor quasiprobability \(\ell_1\) cost at most \(\xi_\star\), and either is locally consumed before phrase composition or exports a bounded stabilizer-frame or classical feature message;
+\item optionally, one distinguished bounded-size semantic feature is allowed to remain active along a single root-to-leaf path, with at most \(O(1)\) resource cost per bag on that path and all sibling phrase subtrees locally marginalized;
+\item all local coefficient norm factors obey \(\kappa_b\le \kappa_\star=O(1)\).
+\end{enumerate}
+Then the induced circuits are locally marginalizable with respect to the parse-tree decomposition. If no distinguished path is active, then \(\weff=O(1)\) and \(\Lammsg=O(1)\). If one distinguished path is active in a balanced \(n\)-word parse tree, then \(\weff=O(1)\) and \(\Lammsg=O(\log n)\). In both cases Theorem~\ref{thm:main} applies.
+\end{proposition}
+
+\begin{proof}
+Use the parse tree as the rooted decomposition. Bounded grammar arity and bounded type dimension imply that each separator carries only a bounded number of grammatical and feature wires before stabilizer compression. The grammatical reductions and phrase-composition maps are free by assumption, so they can be represented by stabilizer, affine, or classical stochastic data.
+
+For a resource word module, the non-Clifford tensor is assigned to the corresponding leaf bag. Its supplied quasiprobability expansion has cost at most \(\xi_\star\). The subsequent stabilizer instrument consumes the resource locally and exports a bounded classical stabilizer feature message, so the inactive-child marginalization check succeeds before the first phrase separator. Thus leaf-local resource labels do not multiply into ancestor messages.
+
+If no distinguished feature is active, every internal child can be declared inactive after its phrase message is converted into a bounded free feature message. The recurrence gives \(\Gamma_b\le \kappa_\star\xi_\star\) at resource leaves and \(O(1)\) at free internal bags, so \(\Lammsg=O(1)\). If one distinguished feature remains unresolved along a root-to-leaf path, the active-child set contains only the child continuing that path. The recurrence then multiplies only the \(O(1)\) costs on that path, giving \(\Lammsg=O(\log n)\) for a balanced parse tree. In both cases the dense active boundary dimension is bounded by the fixed grammar and feature dimensions, so \(\weff=O(1)\).
+\end{proof}
+
+The construction is deliberately restricted. It shows that the hypotheses of Proposition~\ref{prop:qdiscocirc-specialization} are checkable on a lambeq-shaped family, not that practical trained lambeq circuits or arbitrary language tasks satisfy the theorem. It is best viewed as a warm-start or easy-subclass certificate: the same parse-tree structure can be used to record where a more expressive ansatz first fails local marginalizability.
+
+SLMS is best viewed as a dequantisation diagnostic for structured QNLP ans\"atze: it identifies when a proposed circuit family remains classically easy under the chosen certificate. A high certificate pass rate on Clifford-like or discretized warm-start instances would not imply practical quantum advantage; it would instead indicate that those instances remain in an easy regime. A low pass rate would not prove hardness, but it would identify where continuous rotations, entangling phrase tensors, or discourse-level updates obstruct the local-marginalization certificate.
+
+\subsection{A synthetic lambeq-style diagnostic case}
+
+Consider the pregroup-style sentence pattern
+\[
+\text{noun}\quad \text{adverb}\quad \text{transitive verb}\quad \text{noun},
+\]
+with a bounded parse tree whose reductions evaluate the noun wires against the verb type and pass one sentence wire to the root. Let the two noun word modules be free stabilizer preparations. Let the adverb and verb modules each contain one constant-size non-Clifford lexical gadget with certified costs \(\xi_{\mathrm{adv}}\) and \(\xi_{\mathrm{verb}}\). Inside each lexical module, the resource is measured by a Pauli effect and the outcome is written into a bounded computational-basis feature register. The grammatical reductions, cups, and feature-composition maps are free Clifford or classical affine tensors.
+
+Use the parse-tree decomposition with resource assignments at the adverb and verb leaf bags. If both lexical resources are locally consumed before phrase composition, the global burden is
+\[
+\Lambda_{\mathrm{glob}}
+=\log\xi_{\mathrm{adv}}+\log\xi_{\mathrm{verb}},
+\]
+whereas the active-child recurrence has no active internal child after the lexical marginalizations and gives
+\[
+\Lammsg
+=\max\{\log\xi_{\mathrm{adv}},\log\xi_{\mathrm{verb}}\}+O(\log\kappa_\star).
+\]
+The effective boundary width is bounded by the fixed sentence type dimension and the bounded feature register size, so \(\weff=O(1)\).
+
+A one-path variant leaves the verb sentiment feature unresolved until the sentence root while locally marginalizing the adverb feature into a free modifier message. Then the child on the verb-to-root path is active, all sibling phrase subtrees are inactive, and
+\[
+\Lammsg
+\le \log\xi_{\mathrm{verb}}+O(\log\kappa_\star)
+\]
+for this constant-depth diagnostic. In a balanced sentence family with the same rule applied along one distinguished semantic path, the same calculation gives the \(O(\log n)\) active-path behavior of Proposition~\ref{prop:certified-lambeq-family}.
+
+This is a diagnostic calculation, not empirical lambeq data. Generic trained lambeq ans\"atze with continuous rotations, trainable non-Clifford layers at phrase boundaries, or high-level entangling relation tensors may fail the certificate. The point of the example is to show how \(\Lambda_{\mathrm{glob}}\), \(\Lammsg\), \(\weff\), and active-child declarations are checked on a concrete grammar-shaped circuit family.
+
+\begin{openproblem}[Separator burden in QDisCoCirc hardness constructions]
+\label{conj:qdiscocirc-nonvacuity}
+Determine whether explicit QDisCoCirc hardness constructions force large dense width, large effective width, large message burden, or failure of local marginalizability for natural decompositions. Resolving this requires mapping the construction to lower bounds on \(\weff+2\Lammsg\) or to a formal obstruction to local marginalization.
+\end{openproblem}
+
+The conditional BQP-hardness result of Laakkonen, Meichanetzidis, and Coecke~\citep{LaakkonenMeichanetzidisCoecke2024} does not by itself resolve this open problem. It shows that certain compositional text-processing tasks can encode hard quantum computation under explicit assumptions. It does not directly imply lower bounds on treewidth, stabilizer-compressed width, or separator-local message burden.
+
+\subsection{Resource placement patterns}
+
+The framework distinguishes several patterns that global resource counts conflate.
+
+\begin{itemize}[leftmargin=1.2cm]
+\item \emph{Leaf-local lexical magic.} Non-Clifford parameters occur inside word modules near leaves of a parse tree. If each lexical module is contracted to a bounded free or dense boundary before phrase composition, \(\Lammsg\) can remain small.
+
+\item \emph{Phrase-boundary magic.} Non-Clifford tensors sit at phrase-composition maps. These tensors may be active across phrase separators and can increase \(\Lammsg\) even if their number is modest.
+
+\item \emph{Discourse-level magic.} Non-Clifford updates connect sentence or paragraph modules. These are likely to load high-level separators and may violate local marginalizability.
+
+\item \emph{Distributed weak magic.} Many low-cost resource tensors are spread across the graph. Whether this is easy depends on whether their effects can be marginalized locally or whether they coherently combine across separators.
+\end{itemize}
+
+\subsection{Interpretation}
+
+The specialization does not imply that QNLP circuits are quantum-advantaged or classically hard. It gives a diagnostic and algorithmic vocabulary. A certified lambeq-style circuit with low \(\weff\) and low \(\Lammsg\) is classically simulable by the present theorem. A general lambeq or QDisCoCirc circuit outside the locally marginalizable class is not covered by the theorem; it must be analyzed either by ordinary tensor-network width, global magic methods, focused-width or ZX-inspired methods, stabilizer tensor-network methods, or an extension of Conjecture~\ref{conj:general-separator}.

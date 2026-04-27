@@ -1,0 +1,126 @@
+{
+  "timestamp_utc": "2026-04-26T17:27:44.437432+00:00",
+  "commands_run": [
+    "experiments/slms_certificate/run_all.py --mode auto"
+  ],
+  "command": "experiments/slms_certificate/run_all.py --mode auto",
+  "python_executable": "/private/tmp/slms_lambeq_py311/bin/python",
+  "environment_overrides": {
+    "PYTHONPATH": "",
+    "MPLCONFIGDIR": "/tmp/slms_mplconfig"
+  },
+  "python": "3.11.14 (main, Oct  9 2025, 16:16:55) [Clang 17.0.0 (clang-1700.3.19.1)]",
+  "platform": "macOS-26.3.1-arm64-arm-64bit",
+  "dependency_status": {
+    "networkx": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "matplotlib": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "numpy": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "pandas": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "yaml": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "lambeq": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "discopy": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "opt_einsum": {
+      "available": true,
+      "importable": true,
+      "error": null
+    },
+    "cotengra": {
+      "available": false,
+      "importable": false,
+      "error": null
+    }
+  },
+  "mode_requested": "auto",
+  "mode_actually_used": "fallback_with_lambeq_reader_evidence",
+  "mode_used": "fallback_with_lambeq_reader_evidence",
+  "lambeq_availability": true,
+  "parser_availability": true,
+  "lambeq_used": true,
+  "lambeq_status": {
+    "used_lambeq": true,
+    "lambeq_available": true,
+    "parser_available": true,
+    "parser_name": "cups_reader",
+    "real_instances": 120,
+    "extraction_mode": "linear_reader_not_parser",
+    "failure_reason": "",
+    "parser_failure_reason": "real_lambeq_parser_failed: WebParseError: Web parser could not parse 'Alice likes Bob.'",
+    "parser_failure_parser_name": "WebParser",
+    "reader_note": "lambeq LinearReader output; not CCG/Bobcat/DepCCG parsed diagrams"
+  },
+  "number_of_real_instances": 120,
+  "number_of_fallback_instances": 120,
+  "number_of_certificate_passes": 105,
+  "number_of_failures": 15,
+  "warnings": [
+    "fallback_structured_instances_are_not_real_lambeq_outputs",
+    "focused_treewidth_exact_for_n<=22_else_heuristic_upper_bound",
+    "focused_rankwidth_recursive_bipartition_upper_bound_NP_hard_in_general",
+    "ZX_baseline_uses_pyzx_full_reduce_not_Sutcliffe_Kissinger_cutting",
+    "ZX_k_partition_heuristic_is_not_Sutcliffe_Kissinger_exact_algorithm",
+    "STN_proxy_is_tableau_plus_Bravyi_Gosset_upper_bound_NOT_Masot_Llima_or_Nakhl",
+    "wall_clock_microbenchmarks_recorded_for_focused_widths_pyzx_and_STN_proxy",
+    "parser_level_lambeq_extraction_blocked_by_dead_qnlp_cambridgequantum_com_URL"
+  ],
+  "instances": 120,
+  "outputs": {
+    "results_csv": "/Users/prabakarankannan/research/papers/paper/results/slms_certificate_results.csv",
+    "summary_json": "/Users/prabakarankannan/research/papers/paper/results/slms_certificate_summary.json",
+    "failures_csv": "/Users/prabakarankannan/research/papers/paper/results/slms_certificate_failures.csv",
+    "baseline_csv": "/Users/prabakarankannan/research/papers/paper/results/baseline_results.csv",
+    "worked_recurrence_csv": "/Users/prabakarankannan/research/papers/paper/results/worked_certificate_recurrence.csv",
+    "figures": [
+      "/Users/prabakarankannan/research/papers/paper/figures/exp_lambda_msg_histogram.pdf",
+      "/Users/prabakarankannan/research/papers/paper/figures/exp_w_eff_histogram.pdf",
+      "/Users/prabakarankannan/research/papers/paper/figures/exp_lambda_msg_vs_lambda_glob.pdf",
+      "/Users/prabakarankannan/research/papers/paper/figures/exp_exponent_proxy_comparison.pdf",
+      "/Users/prabakarankannan/research/papers/paper/figures/exp_certificate_pass_rate.pdf",
+      "/Users/prabakarankannan/research/papers/paper/figures/exp_focused_width_proxy_comparison.pdf"
+    ],
+    "lambeq_reader_results_csv": "/Users/prabakarankannan/research/papers/paper/results/lambeq_reader_certificate_results.csv",
+    "lambeq_reader_failures_csv": "/Users/prabakarankannan/research/papers/paper/results/lambeq_reader_certificate_failures.csv",
+    "lambeq_reader_baseline_csv": "/Users/prabakarankannan/research/papers/paper/results/lambeq_reader_baseline_results.csv",
+    "lambeq_reader_instances": 120,
+    "lambeq_reader_certificate_passes": 120,
+    "lambeq_reader_extraction_mode": "linear_reader_not_parser",
+    "lambeq_reader_note": "lambeq LinearReader output; not CCG/Bobcat/DepCCG parsed diagrams"
+  },
+  "limitations": [
+    "certificate-evidence only; not wall-clock quantum simulation",
+    "fallback mode is lambeq-compatible synthetic structure, not real parsed lambeq output",
+    "focused tree-width and focused rank-width are computed exactly only for small instances (<=22 vertices); heuristic upper bound otherwise",
+    "ZX baseline uses pyzx full_reduce on a synthetic Clifford+T encoding, not Sutcliffe-Kissinger cutting/parametric rewrites",
+    "ZX k-partition heuristic is implemented as a reproducible pyzx graph diagnostic, but it is NOT the Sutcliffe-Kissinger algorithm",
+    "STN/MAST proxy is a tableau+Bravyi-Gosset stabilizer-rank upper bound; the Masot-Llima and Nakhl algorithms are NOT implemented",
+    "wall-clock timings are recorded for per-instance focused-width, pyzx and STN-proxy computation, not for a full SLMS simulator backend",
+    "parser-level lambeq extraction is blocked upstream: qnlp.cambridgequantum.com is NXDOMAIN; lambeq GitHub issues #253, #254, #257 are open"
+  ]
+}

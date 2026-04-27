@@ -1,0 +1,27 @@
+\section{QNLP Graph Extraction}
+\label{app:qnlp-extraction}
+
+This appendix sketches a reproducible graph-extraction procedure for follow-up experiments.
+
+\subsection{Sentence-level lambeq circuits}
+
+For each sentence:
+\begin{enumerate}[leftmargin=1.2cm]
+\item parse the sentence with a fixed parser and record parser version and options;
+\item build the string diagram and apply a fixed rewrite system;
+\item instantiate the ansatz with a declared number of qubits per grammatical type;
+\item export the circuit or tensor network;
+\item build the contraction graph for the chosen output probability;
+\item identify Clifford/stabilizer tensors and resource tensors;
+\item compute a tree decomposition and separator profile.
+\end{enumerate}
+
+The extraction records both the pre-rewrite and post-rewrite graphs, since rewriting can materially change treewidth and resource placement.
+
+\subsection{Discourse and document graphs}
+
+For discourse-level circuits, the graph includes sentence modules, entity wires, coreference edges, discourse-relation tensors, question tensors, and answer effects. The extraction must distinguish linguistic edges from tensor-contraction edges. Only the latter define \(G_C\), although the former are useful metadata for interpreting separators.
+
+\subsection{Long legal documents as stress tests}
+
+Legal corpora such as ILDC and IndianBailJudgments may be used to create long-document composition graphs with citations, facts, issues, holdings, and paragraph-level relations. In this paper they are benchmark sources only. The graph-extraction task does not encode legal predictions as a claimed application. It measures whether long formal documents produce contraction graphs with distinctive width and separator-local resource profiles.

@@ -1,0 +1,26 @@
+numpy>=1.24
+pandas>=2.0
+networkx>=3.0
+matplotlib>=3.7
+PyYAML>=6.0
+
+# Optional dense-contraction planning baselines. The artifact reports their
+# availability and uses graph-width proxies when they are absent.
+opt_einsum>=3.3
+cotengra>=0.6
+
+# Optional real QNLP parsing stack. The artifact runs without these packages
+# and records an explicit real-lambeq failure report when they are unavailable
+# or when parser model loading fails.
+lambeq>=0.4
+discopy>=1.1
+
+# ZX-calculus baseline (Gap 3 of the revision plan). When pyzx is unavailable
+# the ZX exponent column reports `pyzx_unavailable` and SLMS-vs-ZX comparisons
+# are skipped; all other baselines still run.
+pyzx>=0.10
+
+# QDisCoCirc does not currently resolve from PyPI in the verified environment
+# (`pip install qdiscocirc` reports no matching distribution). The artifact
+# therefore probes for qdiscocirc/qdisco_circ modules but does not list them as
+# installable requirements.
